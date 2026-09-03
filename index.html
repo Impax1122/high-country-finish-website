@@ -1858,6 +1858,17 @@ footer {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ─── RELATED LINKS / RESPONSIVE IMAGES ─── */
+picture { display: contents; }
+.related-section .section-title { font-size: clamp(24px, 3.5vw, 32px); }
+.related-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px 32px; }
+.related-list li { font-size: 15px; line-height: 1.5; }
+.related-list a { color: var(--gold); transition: color .2s; }
+.related-list a:hover { color: var(--gold-light); text-decoration: underline; }
+.post-meta { font-size: 12px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; }
+.port-browse { max-width: 1240px; margin: 0 auto; padding: 0 40px 36px; }
+@media (max-width: 768px) { .port-browse { padding: 0 24px 28px; } }
 </style>
 
 
@@ -1878,19 +1889,58 @@ footer {
   },
   "description": "Denver's premier commercial vinyl graphics and sign installation company. Vehicle graphics, lobby signs, wall murals, window frosting, and storefront graphics serving the Denver metro and Front Range.",
   "areaServed": [
-    "Denver",
-    "Arvada",
-    "Aurora",
-    "Lakewood",
-    "Englewood",
-    "Thornton",
-    "Westminster",
-    "Broomfield",
-    "Littleton",
-    "Castle Rock",
-    "Boulder",
-    "Golden",
-    "Wheat Ridge",
+    {
+      "@type": "City",
+      "name": "Denver"
+    },
+    {
+      "@type": "City",
+      "name": "Arvada"
+    },
+    {
+      "@type": "City",
+      "name": "Aurora"
+    },
+    {
+      "@type": "City",
+      "name": "Lakewood"
+    },
+    {
+      "@type": "City",
+      "name": "Englewood"
+    },
+    {
+      "@type": "City",
+      "name": "Thornton"
+    },
+    {
+      "@type": "City",
+      "name": "Westminster"
+    },
+    {
+      "@type": "City",
+      "name": "Broomfield"
+    },
+    {
+      "@type": "City",
+      "name": "Littleton"
+    },
+    {
+      "@type": "City",
+      "name": "Castle Rock"
+    },
+    {
+      "@type": "City",
+      "name": "Boulder"
+    },
+    {
+      "@type": "City",
+      "name": "Golden"
+    },
+    {
+      "@type": "City",
+      "name": "Wheat Ridge"
+    },
     "Front Range Colorado"
   ],
   "serviceType": [
@@ -1907,10 +1957,48 @@ footer {
     "Sign Shop Subcontractor"
   ],
   "image": "https://highcountryfinish.com/images/peak-elevator-lobby-sign.jpg",
-  "priceRange": "$$"
+  "priceRange": "$$",
+  "@id": "https://highcountryfinish.com/#business",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.8028,
+    "longitude": -105.0875
+  },
+  "slogan": "Precision installs, every time.",
+  "knowsAbout": [
+    "Commercial sign installation",
+    "Vehicle wraps and vehicle lettering",
+    "Lobby signs and dimensional letters",
+    "Building and storefront signs",
+    "Wall graphics and murals",
+    "Window frosting and privacy film",
+    "Window tint",
+    "3M cast vinyl films"
+  ],
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "name": "3M Certified Graphics Installer",
+    "credentialCategory": "certification",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "3M"
+    }
+  }
 }
 </script>
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://highcountryfinish.com/#website",
+  "url": "https://highcountryfinish.com/",
+  "name": "High Country Finish and Repair CO",
+  "publisher": {
+    "@id": "https://highcountryfinish.com/#business"
+  }
+}
+</script>
 </head>
 
 <body>
@@ -2319,45 +2407,45 @@ footer {
     <div class="hero-gallery-grid reveal">
 
       <div class="hero-gallery-item" onclick="openGroupModal(this)">
-        <img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960"
+        <picture><source type="image/webp" srcset="/images/webp/peak-elevator-lobby-sign-480.webp 480w, /images/webp/peak-elevator-lobby-sign-800.webp 800w, /images/webp/peak-elevator-lobby-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960"
              alt="lobby sign installation Denver - PEAK Elevator Performance Group acrylic panel"
-             fetchpriority="high"/>
+             fetchpriority="high"/></picture>
         <div class="hero-gallery-overlay">
           <span class="hero-gallery-caption">PEAK Elevator Performance Group</span>
         </div>
       </div>
 
       <div class="hero-gallery-item" onclick="openGroupModal(this)">
-        <img src="images/novara-frosted-glass.jpg" width="1280" height="960"
+        <picture><source type="image/webp" srcset="/images/webp/novara-frosted-glass-480.webp 480w, /images/webp/novara-frosted-glass-800.webp 800w, /images/webp/novara-frosted-glass.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/novara-frosted-glass.jpg" width="1280" height="960"
              alt="office reception signage and frosted glass installation Denver - Novara"
-             loading="lazy"/>
+             loading="lazy"/></picture>
         <div class="hero-gallery-overlay">
           <span class="hero-gallery-caption">Novara &#8212; Reception &amp; Frosted Glass</span>
         </div>
       </div>
 
       <div class="hero-gallery-item" onclick="openGroupModal(this)">
-        <img src="images/omeara-room-wrap.jpg" width="1280" height="814"
+        <picture><source type="image/webp" srcset="/images/webp/omeara-room-wrap-480.webp 480w, /images/webp/omeara-room-wrap-800.webp 800w, /images/webp/omeara-room-wrap.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/omeara-room-wrap.jpg" width="1280" height="814"
              alt="full room wrap installation Denver - vinyl wall and ceiling graphics"
-             loading="lazy"/>
+             loading="lazy"/></picture>
         <div class="hero-gallery-overlay">
           <span class="hero-gallery-caption">O&#8217;Meara Ford / KBPI &#8212; Full Room Wrap</span>
         </div>
       </div>
 
       <div class="hero-gallery-item" onclick="openGroupModal(this)">
-        <img src="images/buffalo-restaurant-exterior.jpg" width="1280" height="960"
+        <picture><source type="image/webp" srcset="/images/webp/buffalo-restaurant-exterior-480.webp 480w, /images/webp/buffalo-restaurant-exterior-800.webp 800w, /images/webp/buffalo-restaurant-exterior.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/buffalo-restaurant-exterior.jpg" width="1280" height="960"
              alt="exterior storefront sign installation Front Range Colorado - The Buffalo Restaurant"
-             loading="lazy"/>
+             loading="lazy"/></picture>
         <div class="hero-gallery-overlay">
           <span class="hero-gallery-caption">The Buffalo Restaurant &amp; Bar</span>
         </div>
       </div>
 
       <div class="hero-gallery-item" onclick="openGroupModal(this)">
-        <img src="images/cybertruck-side.jpg" width="1280" height="960"
+        <picture><source type="image/webp" srcset="/images/webp/cybertruck-side-480.webp 480w, /images/webp/cybertruck-side-800.webp 800w, /images/webp/cybertruck-side.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/cybertruck-side.jpg" width="1280" height="960"
              alt="vehicle wrap installation Denver - Cybertruck Black Rock vinyl lettering side view"
-             loading="lazy"/>
+             loading="lazy"/></picture>
         <div class="hero-gallery-overlay">
           <span class="hero-gallery-caption">Cybertruck &#8212; Black Rock Vinyl Lettering</span>
         </div>
@@ -2841,7 +2929,7 @@ footer {
       <div class="about-img-wrap reveal">
 
         <div class="about-img">
-          <img src="/images/sea-lobby-sign.jpg" width="960" height="1280" alt="Dimensional lobby sign installed by High Country Finish and Repair CO — SEA reception, Denver" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover"/>
+          <picture><source type="image/webp" srcset="/images/webp/sea-lobby-sign-480.webp 480w, /images/webp/sea-lobby-sign-800.webp 800w, /images/webp/sea-lobby-sign.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/sea-lobby-sign.jpg" width="960" height="1280" alt="Dimensional lobby sign installed by High Country Finish and Repair CO — SEA reception, Denver" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover"/></picture>
         </div>
 
 
@@ -2971,9 +3059,9 @@ footer {
       </div>
 
       <div class="reveal reveal-delay-1">
-        <img src="images/service-area-map.jpg" width="792" height="800"
+        <picture><source type="image/webp" srcset="/images/webp/service-area-map-480.webp 480w, /images/webp/service-area-map-800.webp 800w, /images/webp/service-area-map.webp 792w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/service-area-map.jpg" width="792" height="800"
              alt="service area map - Denver Front Range Colorado vinyl installation coverage"
-             style="width:100%;border-radius:4px;border:1px solid var(--border);display:block;" />
+             style="width:100%;border-radius:4px;border:1px solid var(--border);display:block;" /></picture>
       </div>
 
     </div>
