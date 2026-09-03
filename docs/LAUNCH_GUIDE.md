@@ -1,53 +1,23 @@
 # High Country Finish and Repair CO — Launch Guide
 
-## 1. Adding Your Photos
+> **Status (Sept 2026):** photos, the Formspree form, hosting, domain and favicons are all done.
+> The remaining items are the business listings (section 5–6) and the owner decisions listed at
+> the bottom of this file.
 
-Drop photos into the `images/` folder, then update the HTML:
+## 1. Photos
 
-**Hero background:**
-```html
-<!-- Find this in index.html: -->
-<div class="hero-bg-img" id="hero-bg"></div>
-<!-- Change to: -->
-<div class="hero-bg-img" style="background-image:url('images/hero.jpg')"></div>
-```
-
-**Gallery photos** — replace each `gallery-placeholder` div:
-```html
-<!-- Replace: -->
-<div class="gallery-placeholder">...</div>
-<!-- With: -->
-<img class="gallery-img" src="images/wrap1.jpg" alt="Vehicle wrap Denver"/>
-```
-
-**Photo naming suggestions:**
-- `hero.jpg` — your best-looking full vehicle wrap (landscape, 1920x1080+)
-- `wrap1.jpg`, `wrap2.jpg` — vehicle wrap shots
-- `sign1.jpg`, `sign2.jpg` — lobby/building sign shots
-- `window1.jpg` — window tint/frosting shot
-- `wall1.jpg` — wall graphic shot
-- `about.jpg` — you or your team working (optional)
-
-**Gallery data-cat tags** (for filter buttons):
-- `data-cat="wrap"` — vehicle wraps & spot graphics
-- `data-cat="sign"` — any sign work
-- `data-cat="window"` — window tint/frosting
-- `data-cat="wall"` — wall graphics
+All portfolio and hero photos live in `images/` and are already wired into the pages.
+The homepage "About" block currently shows an install photo (`images/sea-lobby-sign.jpg`);
+to swap in a team photo, replace that `<img>` in `index.html` (keep `object-fit:cover`).
 
 ---
 
-## 2. Set Up the Contact Form (Formspree — Free)
+## 2. Contact Form (Formspree)
 
-The form currently falls back to mailto. To get proper form submissions to your email:
-
-1. Go to **https://formspree.io** → sign up free
-2. Create a new form, set email to `highcountryfinishandrepairco@gmail.com`
-3. Copy your Form ID (looks like `xpzgkwrb`)
-4. In `index.html`, find:
-   ```html
-   action="https://formspree.io/f/YOUR_FORM_ID"
-   ```
-   Replace `YOUR_FORM_ID` with your actual ID.
+Both quote forms (homepage and `get-a-quote.html`) post to
+`https://formspree.io/f/mqeydnkg` via JavaScript and show an inline success message.
+They include a hidden `_gotcha` honeypot field for spam. Manage submissions and the
+notification email at **https://formspree.io**.
 
 Free tier: 50 submissions/month. Paid: $10/mo unlimited.
 
@@ -135,24 +105,31 @@ The site already has:
 
 ---
 
-## 8. Stats to Update
+## 8. Owner decisions (need real-world facts, not code)
 
-In the hero section, update these numbers to be accurate:
-```html
-<div class="hs-num">500+</div>  <!-- installs completed -->
-<div class="hs-num">10+</div>   <!-- years experience -->
-```
+The template's made-up numbers and badges were removed from the homepage during the
+September 2026 audit and replaced with claims the site already makes elsewhere
+(24-hour quote turnaround, 1-hour travel radius, in-house installs, premium cast vinyl).
+If you want the original style of stats back, edit `index.html` with **true** figures:
+
+- Hero stats (`.hero-stat` blocks): e.g. real installs completed, years in business.
+- About badges (`.about-badges`): "Fully Insured" is still there — confirm it is accurate.
+  "3M Preferred Installer" and "5-Star Rated" were removed; restore only if you hold the
+  3M certification / have public 5-star reviews.
+- Street address: the LocalBusiness schema on the homepage publishes
+  `9563 Joyce Way, Arvada, CO 80007`. Remove it if you do not want the address indexed.
+- Social profiles: add `sameAs` links (Google Business, Instagram, Facebook) to the
+  LocalBusiness schema once the profiles exist.
 
 ---
 
 ## Summary Checklist
 
-- [ ] Add hero + portfolio photos
-- [ ] Update hero stats (500+ installs, years experience)
-- [ ] Sign up for Formspree and add form ID
-- [ ] Deploy to Netlify
-- [ ] Buy domain name
-- [ ] Connect domain to Netlify
+- [x] Add hero + portfolio photos
+- [x] Replace template hero stats / badges (see section 8 for restoring real numbers)
+- [x] Formspree form connected
+- [x] Deploy to Netlify
+- [x] Domain connected (highcountryfinish.com)
 - [ ] Set up Google Business Profile
 - [ ] Create Yelp, Facebook, Instagram accounts
 - [ ] Get first 5 Google reviews
