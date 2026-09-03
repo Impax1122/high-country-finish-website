@@ -232,15 +232,15 @@ nav.scrolled {
         <p>Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time.</p>
       </div>
       <div class="footer-col">
-        <h4>Services</h4>
+        <p class="footer-heading">Services</p>
         <ul>...</ul>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <p class="footer-heading">Company</p>
         <ul>...</ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <p class="footer-heading">Contact</p>
         <ul>...</ul>
       </div>
     </div>
@@ -289,7 +289,7 @@ footer {
   line-height: 1.7;
 }
 
-.footer-col h4 {
+.footer-col .footer-heading {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 600;
@@ -482,6 +482,8 @@ vinyl-website/
 ---
 
 ## Homepage = Master Template
+
+**Nav and footer markup live in `partials/` and are copied into every page by `node build.js` — edit them there, never in a page.**
 
 **The homepage (`index.html`) is the source of truth for:**
 - All CSS
