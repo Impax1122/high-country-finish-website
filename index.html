@@ -37,6 +37,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 
@@ -1848,6 +1849,15 @@ footer {
   .hero-stats { position: static; margin-top: 40px; flex-wrap: wrap; gap: 24px 36px; }
 }
 
+
+/* ─── ACCESSIBILITY: skip link, reduced motion, no-JS fallback ─── */
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--gold); color: #000; font-weight: 600; font-size: 14px; border-radius: 2px; transition: top .15s; }
+.skip-link:focus { top: 16px; outline: 2px solid #fff; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .reveal { opacity: 1; transform: none; }
+}
 </style>
 
 
@@ -1881,6 +1891,8 @@ footer {
     "Littleton",
     "Castle Rock",
     "Boulder",
+    "Golden",
+    "Wheat Ridge",
     "Front Range Colorado"
   ],
   "serviceType": [
@@ -1900,9 +1912,11 @@ footer {
   "priceRange": "$$"
 }
 </script>
-  </head>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
 
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 
 <!-- MODAL -->
@@ -1953,6 +1967,7 @@ footer {
   </div>
 
 </nav>
+<main id="main">
 
 
 <!-- HERO -->
@@ -2306,7 +2321,7 @@ footer {
       <div class="hero-gallery-item" onclick="openGroupModal(this)">
         <img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960"
              alt="lobby sign installation Denver - PEAK Elevator Performance Group acrylic panel"
-             loading="lazy"/>
+             fetchpriority="high"/>
         <div class="hero-gallery-overlay">
           <span class="hero-gallery-caption">PEAK Elevator Performance Group</span>
         </div>
@@ -3166,6 +3181,8 @@ footer {
 
 
 <!-- FOOTER -->
+
+</main>
 
 <footer>
   <div class="container">

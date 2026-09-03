@@ -26,6 +26,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
@@ -2540,6 +2541,15 @@ footer {
 
 }
 
+
+/* ─── ACCESSIBILITY: skip link, reduced motion, no-JS fallback ─── */
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--gold); color: #000; font-weight: 600; font-size: 14px; border-radius: 2px; transition: top .15s; }
+.skip-link:focus { top: 16px; outline: 2px solid #fff; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .reveal { opacity: 1; transform: none; }
+}
 </style>
   <style>
     /* ── Portfolio page specific ── */
@@ -2630,8 +2640,10 @@ footer {
     #lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border:1px solid var(--border);}
     #lightbox-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--white);font-size:2rem;cursor:pointer;line-height:1;}
   </style>
-  </head>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav id="nav">
 
@@ -2668,6 +2680,7 @@ footer {
   </div>
 
 </nav>
+<main id="main">
 
 <!-- Page Hero -->
 <section class="port-hero">
@@ -2681,7 +2694,7 @@ footer {
   <div class="port-grid">
 
     <div class="port-item" onclick="openLightbox('images/peak-elevator-lobby-sign.jpg')">
-      <img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="Lobby Acrylic Sign · PEAK Elevator — Denver commercial vinyl graphics by High Country Finish" loading="lazy">
+      <img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="Lobby Acrylic Sign · PEAK Elevator — Denver commercial vinyl graphics by High Country Finish" fetchpriority="high">
       <p class="port-caption">Lobby Acrylic Sign · PEAK Elevator</p>
     </div>
     <div class="port-item" onclick="openLightbox('images/novara-frosted-glass.jpg')">
@@ -2697,7 +2710,7 @@ footer {
       <p class="port-caption">Office Wall Mural · Elite Brands</p>
     </div>
     <div class="port-item" onclick="openLightbox('images/corporate-values-wall-mural.jpg')">
-      <img src="images/corporate-values-wall-mural.jpg" width="1280" height="960" alt="Corporate values wall mural Denver — Work Hard Team First Drive For Results Integrity mountain design" loading="lazy">
+      <img src="images/corporate-values-wall-mural.jpg" width="960" height="1280" alt="Corporate values wall mural Denver — Work Hard Team First Drive For Results Integrity mountain design" loading="lazy">
       <p class="port-caption">Corporate Values Wall Mural</p>
     </div>
     <div class="port-item" onclick="openLightbox('images/cybertruck-side.jpg')">
@@ -2794,6 +2807,8 @@ footer {
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="container">

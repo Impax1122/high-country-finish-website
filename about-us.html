@@ -26,6 +26,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -677,9 +678,20 @@ footer {
   transform: translateY(-2px);
 }
 
+
+/* ─── ACCESSIBILITY: skip link, reduced motion, no-JS fallback ─── */
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--gold); color: #000; font-weight: 600; font-size: 14px; border-radius: 2px; transition: top .15s; }
+.skip-link:focus { top: 16px; outline: 2px solid #fff; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .reveal { opacity: 1; transform: none; }
+}
 </style>
-  </head>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav id="nav">
   <a href="/" class="nav-logo">
@@ -710,6 +722,7 @@ footer {
     <span></span><span></span><span></span>
   </div>
 </nav>
+<main id="main">
 
 
 <section class="hero">
@@ -729,7 +742,7 @@ footer {
       <p style="margin-top:20px;">That is where we put our focus. Clean lines. Careful layout. Proper prep. Sharp trimming. Balanced placement. Secure mounting. We believe clients should be proud of the finished result and confident putting their name on it.</p>
     </div>
     <div class="image-feature">
-      <img src="/images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="PEAK Elevator lobby sign installation Denver — precision-mounted dimensional letters" loading="lazy"/>
+      <img src="/images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="PEAK Elevator lobby sign installation Denver — precision-mounted dimensional letters" fetchpriority="high"/>
     </div>
   </div>
 </section>
@@ -769,6 +782,8 @@ footer {
   </div>
 </section>
 
+
+</main>
 
 <footer>
   <div class="container">

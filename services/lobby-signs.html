@@ -26,6 +26,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -634,6 +635,15 @@ footer {
   transform: translateY(-2px);
 }
 
+
+/* ─── ACCESSIBILITY: skip link, reduced motion, no-JS fallback ─── */
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--gold); color: #000; font-weight: 600; font-size: 14px; border-radius: 2px; transition: top .15s; }
+.skip-link:focus { top: 16px; outline: 2px solid #fff; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .reveal { opacity: 1; transform: none; }
+}
 </style>
   
   <script type="application/ld+json">
@@ -662,8 +672,10 @@ footer {
   "description": "Professional lobby signage installation in Denver, including dimensional letters, acrylic signs, and custom designs for lasting impressions."
 }
   </script>
-  </head>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav id="nav">
   <a href="/" class="nav-logo">
@@ -694,6 +706,7 @@ footer {
     <span></span><span></span><span></span>
   </div>
 </nav>
+<main id="main">
 
 
 <section class="hero">
@@ -712,7 +725,7 @@ footer {
       <p>A good lobby sign does more than display a logo. It sets the tone for the space. We install acrylic signs, dimensional letters, stand-off signs, office branding pieces, and other reception signage with a careful eye for spacing, level placement, and final presentation.</p>
     </div>
     <div class="image-feature">
-      <img src="/images/kpa-lobby-sign.jpg" width="1280" height="960" alt="KPA lobby sign Denver — dimensional letters with precision placement" loading="lazy"/>
+      <img src="/images/kpa-lobby-sign.jpg" width="1280" height="960" alt="KPA lobby sign Denver — dimensional letters with precision placement" fetchpriority="high"/>
     </div>
   </div>
 </section>
@@ -749,6 +762,8 @@ footer {
   </div>
 </section>
 
+
+</main>
 
 <footer>
   <div class="container">
