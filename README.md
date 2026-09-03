@@ -15,14 +15,19 @@ blog/*.html           Articles
 404.html              Custom not-found page
 images/               Photos, logo, share card (og-home.jpg), favicons
 sitemap.xml, robots.txt, netlify.toml, favicon.ico
+partials/             nav.html and footer.html — the single source for the shared nav/footer
+build.js              Copies the partials into every page (node build.js; --check on deploy)
 docs/                 Brand guide, launch guide and build logs (not served)
 scripts/              Historical one-off build/patch scripts (not served, do not re-run)
 ```
 
 ## Editing
 
-* Every page carries its own copy of the shared CSS, nav and footer. When you change one of
-  those, apply the same change to all 22 pages (a scripted find-and-replace is the safest way).
+* The site nav and footer live in `partials/nav.html` and `partials/footer.html`. Edit the partial,
+  then run `node build.js` to copy it into every page (each page holds the block between
+  `<!-- build:nav -->` / `<!-- build:footer -->` markers). `node build.js --check` reports stale
+  pages and is what Netlify runs on deploy, so a forgotten build fails loudly instead of shipping.
+* The shared CSS is still duplicated per page; when you change it, apply the change to all 22 pages.
 * Save files as UTF-8 without a byte-order mark.
 * The quote forms post to Formspree (`https://formspree.io/f/mqeydnkg`) and include a `_gotcha`
   honeypot field for spam.

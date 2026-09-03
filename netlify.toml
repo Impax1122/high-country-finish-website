@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = ""
+  command = "node build.js --check"
 
 [build.processing.html]
   pretty_urls = true
@@ -19,7 +19,19 @@
   force = true
 
 [[redirects]]
+  from = "/partials/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
   from = "/README.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/build.js"
   to = "/404.html"
   status = 404
   force = true
