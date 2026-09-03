@@ -117,7 +117,7 @@ If you want the original style of stats back, edit `index.html` with **true** fi
   "3M Preferred Installer" and "5-Star Rated" were removed; restore only if you hold the
   3M certification / have public 5-star reviews.
 - Street address: the LocalBusiness schema on the homepage publishes
-  `9563 Joyce Way, Arvada, CO 80007`. Remove it if you do not want the address indexed.
+  city level only (Arvada, CO) at the owner's request — no street address or ZIP is published.
 - Social profiles: add `sameAs` links (Google Business, Instagram, Facebook) to the
   LocalBusiness schema once the profiles exist.
 
