@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/site.css?v=6d609258"/>
+<link rel="stylesheet" href="/css/site.css?v=cde758bb"/>
   
   
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -68,8 +68,9 @@
   <div class="nav-links" id="nav-links">
     <a onclick="closeNav()" href="/">Home</a>
     <div class="nav-item">
-      <a href="/services.html">Services</a>
-      <div class="nav-dropdown">
+      <a href="/services.html" aria-haspopup="true" aria-expanded="false" aria-controls="nav-services">Services</a>
+      <div class="nav-dropdown" id="nav-services">
+        <a onclick="closeNav()" href="/services.html">All services</a>
         <a onclick="closeNav()" href="/services/vehicle-wraps.html">Vehicle wraps</a>
         <a onclick="closeNav()" href="/services/spot-graphics.html">Spot graphics</a>
         <a onclick="closeNav()" href="/services/window-tint.html">Window tint</a>
@@ -101,7 +102,7 @@
 <section class="port-hero">
   <span class="label">Our work</span>
   <h1>Portfolio</h1>
-  <p class="subtitle">Every install.</p>
+  <p class="subtitle">Lobby signs, wall wraps, storefronts and vehicle lettering across the Denver metro. Tap any photo to enlarge.</p>
 </section>
 
 <!-- Image Grid -->
@@ -122,117 +123,117 @@
 <section class="port-grid-section">
   <div class="port-grid">
 
-    <div class="port-item" onclick="openLightbox('images/peak-elevator-lobby-sign.jpg')">
+    <div class="port-item" onclick="openLightbox('images/peak-elevator-lobby-sign.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/peak-elevator-lobby-sign-480.webp 480w, /images/webp/peak-elevator-lobby-sign-800.webp 800w, /images/webp/peak-elevator-lobby-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="Acrylic lobby sign with dimensional letters for PEAK Elevator in Denver" fetchpriority="high"></picture>
-      <p class="port-caption">Lobby Acrylic Sign · PEAK Elevator</p>
+      <p class="port-caption">PEAK Elevator · acrylic lobby sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/novara-frosted-glass.jpg')">
+    <div class="port-item" onclick="openLightbox('images/novara-frosted-glass.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/novara-frosted-glass-480.webp 480w, /images/webp/novara-frosted-glass-800.webp 800w, /images/webp/novara-frosted-glass.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/novara-frosted-glass.jpg" width="1280" height="960" alt="Frosted privacy film with the Novara logo on an office glass partition" loading="lazy"></picture>
-      <p class="port-caption">Frosted Glass Panel · Novara</p>
+      <p class="port-caption">Novara · frosted glass panel</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/omeara-room-wrap.jpg')">
+    <div class="port-item" onclick="openLightbox('images/omeara-room-wrap.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/omeara-room-wrap-480.webp 480w, /images/webp/omeara-room-wrap-800.webp 800w, /images/webp/omeara-room-wrap.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/omeara-room-wrap.jpg" width="1280" height="814" alt="Full room wrap with printed vinyl on walls and ceiling at O&#x27;Meara Ford" loading="lazy"></picture>
-      <p class="port-caption">Full Room Wrap · O'Meara Ford</p>
+      <p class="port-caption">O'Meara Ford · full room wrap</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/elite-brands-wall-mural.jpg')">
+    <div class="port-item" onclick="openLightbox('images/elite-brands-wall-mural.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/elite-brands-wall-mural-480.webp 480w, /images/webp/elite-brands-wall-mural-800.webp 800w, /images/webp/elite-brands-wall-mural.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/elite-brands-wall-mural.jpg" width="1280" height="960" alt="Full-wall printed vinyl mural in the Elite Brands office in Denver" loading="lazy"></picture>
-      <p class="port-caption">Office Wall Mural · Elite Brands</p>
+      <p class="port-caption">Elite Brands · office wall mural</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/corporate-values-wall-mural.jpg')">
+    <div class="port-item" onclick="openLightbox('images/corporate-values-wall-mural.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/corporate-values-wall-mural-480.webp 480w, /images/webp/corporate-values-wall-mural-800.webp 800w, /images/webp/corporate-values-wall-mural.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/corporate-values-wall-mural.jpg" width="960" height="1280" alt="Corporate values wall mural Denver — Work Hard Team First Drive For Results Integrity mountain design" loading="lazy"></picture>
-      <p class="port-caption">Corporate Values Wall Mural</p>
+      <p class="port-caption">Corporate office · values wall mural</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/cybertruck-side.jpg')">
+    <div class="port-item" onclick="openLightbox('images/cybertruck-side.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/cybertruck-side-480.webp 480w, /images/webp/cybertruck-side-800.webp 800w, /images/webp/cybertruck-side.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/cybertruck-side.jpg" width="1280" height="960" alt="Side view of Black Rock vinyl lettering on a Tesla Cybertruck in Denver" loading="lazy"></picture>
-      <p class="port-caption">Vinyl Lettering · Cybertruck</p>
+      <p class="port-caption">Black Rock · Cybertruck lettering</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/buffalo-restaurant-exterior.jpg')">
+    <div class="port-item" onclick="openLightbox('images/buffalo-restaurant-exterior.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/buffalo-restaurant-exterior-480.webp 480w, /images/webp/buffalo-restaurant-exterior-800.webp 800w, /images/webp/buffalo-restaurant-exterior.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/buffalo-restaurant-exterior.jpg" width="1280" height="960" alt="Storefront exterior graphics and signage for The Buffalo restaurant" loading="lazy"></picture>
-      <p class="port-caption">Exterior Storefront · The Buffalo</p>
+      <p class="port-caption">The Buffalo · exterior storefront</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/novara-lobby.jpg')">
+    <div class="port-item" onclick="openLightbox('images/novara-lobby.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/novara-lobby-480.webp 480w, /images/webp/novara-lobby-800.webp 800w, /images/webp/novara-lobby.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/novara-lobby.jpg" width="1280" height="960" alt="Novara lobby vinyl wall graphics installation Denver CO" loading="lazy"></picture>
-      <p class="port-caption">Lobby Wall Lettering · Novara</p>
+      <p class="port-caption">Novara · lobby wall lettering</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/omeara-room-wrap-wide.jpg')">
+    <div class="port-item" onclick="openLightbox('images/omeara-room-wrap-wide.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/omeara-room-wrap-wide-480.webp 480w, /images/webp/omeara-room-wrap-wide-800.webp 800w, /images/webp/omeara-room-wrap-wide.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/omeara-room-wrap-wide.jpg" width="1280" height="360" alt="Wide view of the O&#x27;Meara Ford room wrap covering walls and ceiling" loading="lazy"></picture>
-      <p class="port-caption">Room Wrap Wide View · O'Meara Ford</p>
+      <p class="port-caption">O'Meara Ford · room wrap, wide view</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/iheart-elevator-wrap.jpg')">
+    <div class="port-item" onclick="openLightbox('images/iheart-elevator-wrap.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/iheart-elevator-wrap-480.webp 480w, /images/webp/iheart-elevator-wrap-800.webp 800w, /images/webp/iheart-elevator-wrap.webp 720w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/iheart-elevator-wrap.jpg" width="720" height="1280" alt="Vinyl-wrapped elevator doors at the iHeartMedia offices in Denver" loading="lazy"></picture>
-      <p class="port-caption">Elevator Wrap · iHeartMedia</p>
+      <p class="port-caption">iHeartMedia · elevator wrap</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/childrens-museum-artstudio.jpg')">
+    <div class="port-item" onclick="openLightbox('images/childrens-museum-artstudio.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/childrens-museum-artstudio-480.webp 480w, /images/webp/childrens-museum-artstudio-800.webp 800w, /images/webp/childrens-museum-artstudio.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/childrens-museum-artstudio.jpg" width="1280" height="960" alt="Dimensional &quot;Art Studio&quot; letters installed at the Children&#x27;s Museum" loading="lazy"></picture>
-      <p class="port-caption">Art Studio Letters · Children's Museum</p>
+      <p class="port-caption">Children's Museum · Art Studio letters</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/cybertruck-front.jpg')">
+    <div class="port-item" onclick="openLightbox('images/cybertruck-front.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/cybertruck-front-480.webp 480w, /images/webp/cybertruck-front-800.webp 800w, /images/webp/cybertruck-front.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/cybertruck-front.jpg" width="1280" height="960" alt="Front view of Black Rock vinyl lettering on a Tesla Cybertruck" loading="lazy"></picture>
-      <p class="port-caption">Vinyl Lettering Front · Cybertruck</p>
+      <p class="port-caption">Black Rock · Cybertruck, front</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/gym-wall-mural.jpg')">
+    <div class="port-item" onclick="openLightbox('images/gym-wall-mural.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/gym-wall-mural-480.webp 480w, /images/webp/gym-wall-mural-800.webp 800w, /images/webp/gym-wall-mural.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/gym-wall-mural.jpg" width="1280" height="960" alt="Commercial gym wall mural vinyl installation Front Range Colorado" loading="lazy"></picture>
-      <p class="port-caption">Large Format Wall Mural</p>
+      <p class="port-caption">Gym · large-format wall mural</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/gque-bbq-mural.jpg')">
+    <div class="port-item" onclick="openLightbox('images/gque-bbq-mural.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/gque-bbq-mural-480.webp 480w, /images/webp/gque-bbq-mural-800.webp 800w, /images/webp/gque-bbq-mural.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/gque-bbq-mural.jpg" width="1280" height="960" alt="Printed wall mural installed at GQue BBQ restaurant" loading="lazy"></picture>
-      <p class="port-caption">Wall Mural · GQue BBQ</p>
+      <p class="port-caption">GQue BBQ · wall mural</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/buffalo-building-sign.jpg')">
+    <div class="port-item" onclick="openLightbox('images/buffalo-building-sign.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/buffalo-building-sign-480.webp 480w, /images/webp/buffalo-building-sign-800.webp 800w, /images/webp/buffalo-building-sign.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/buffalo-building-sign.jpg" width="960" height="1280" alt="Exterior building sign for The Buffalo restaurant" loading="lazy"></picture>
-      <p class="port-caption">Building Sign · The Buffalo</p>
+      <p class="port-caption">The Buffalo · building sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/childrens-museum-donor.jpg')">
+    <div class="port-item" onclick="openLightbox('images/childrens-museum-donor.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/childrens-museum-donor-480.webp 480w, /images/webp/childrens-museum-donor-800.webp 800w, /images/webp/childrens-museum-donor.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/childrens-museum-donor.jpg" width="1280" height="960" alt="Donor recognition wall with dimensional lettering at the Children&#x27;s Museum" loading="lazy"></picture>
-      <p class="port-caption">Donor Recognition Wall · Children's Museum</p>
+      <p class="port-caption">Children's Museum · donor recognition wall</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/kpa-lobby-sign.jpg')">
+    <div class="port-item" onclick="openLightbox('images/kpa-lobby-sign.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/kpa-lobby-sign-480.webp 480w, /images/webp/kpa-lobby-sign-800.webp 800w, /images/webp/kpa-lobby-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/kpa-lobby-sign.jpg" width="1280" height="960" alt="KPA lobby acrylic sign installation Arvada Colorado" loading="lazy"></picture>
-      <p class="port-caption">Lobby Sign · KPA</p>
+      <p class="port-caption">KPA · lobby sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/westbound-building-sign.jpg')">
+    <div class="port-item" onclick="openLightbox('images/westbound-building-sign.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/westbound-building-sign-480.webp 480w, /images/webp/westbound-building-sign-800.webp 800w, /images/webp/westbound-building-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/westbound-building-sign.jpg" width="1280" height="960" alt="Exterior building sign installed for Westbound &amp; Down" loading="lazy"></picture>
-      <p class="port-caption">Building Sign · Westbound & Down</p>
+      <p class="port-caption">Westbound &amp; Down · building sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/sea-lobby-wide.jpg')">
+    <div class="port-item" onclick="openLightbox('images/sea-lobby-wide.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/sea-lobby-wide-480.webp 480w, /images/webp/sea-lobby-wide-800.webp 800w, /images/webp/sea-lobby-wide.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sea-lobby-wide.jpg" width="1280" height="960" alt="SEA lobby wide-angle vinyl wall graphics Denver Colorado" loading="lazy"></picture>
-      <p class="port-caption">Lobby Graphics · SEA</p>
+      <p class="port-caption">SEA · lobby graphics</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/novara-reception.jpg')">
+    <div class="port-item" onclick="openLightbox('images/novara-reception.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/novara-reception-480.webp 480w, /images/webp/novara-reception-800.webp 800w, /images/webp/novara-reception.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/novara-reception.jpg" width="1280" height="960" alt="Novara reception wall sign with dimensional lettering in Denver" loading="lazy"></picture>
-      <p class="port-caption">Reception Signage · Novara</p>
+      <p class="port-caption">Novara · reception signage</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/sea-lobby-sign.jpg')">
+    <div class="port-item" onclick="openLightbox('images/sea-lobby-sign.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/sea-lobby-sign-480.webp 480w, /images/webp/sea-lobby-sign-800.webp 800w, /images/webp/sea-lobby-sign.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sea-lobby-sign.jpg" width="960" height="1280" alt="SEA lobby dimensional sign installation Denver Colorado" loading="lazy"></picture>
-      <p class="port-caption">Lobby Sign · SEA</p>
+      <p class="port-caption">SEA · lobby sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/trinity-place-exterior-sign.jpg')">
+    <div class="port-item" onclick="openLightbox('images/trinity-place-exterior-sign.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/trinity-place-exterior-sign-480.webp 480w, /images/webp/trinity-place-exterior-sign-800.webp 800w, /images/webp/trinity-place-exterior-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/trinity-place-exterior-sign.jpg" width="1280" height="960" alt="Exterior building sign installed at Trinity Place in Denver" loading="lazy"></picture>
-      <p class="port-caption">Exterior Sign · Trinity Place</p>
+      <p class="port-caption">Trinity Place · exterior sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/trinity-place-exterior-sign2.jpg')">
+    <div class="port-item" onclick="openLightbox('images/trinity-place-exterior-sign2.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/trinity-place-exterior-sign2-480.webp 480w, /images/webp/trinity-place-exterior-sign2-800.webp 800w, /images/webp/trinity-place-exterior-sign2.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/trinity-place-exterior-sign2.jpg" width="1280" height="960" alt="Second view of the Trinity Place exterior building sign in Denver" loading="lazy"></picture>
-      <p class="port-caption">Exterior Sign Alt · Trinity Place</p>
+      <p class="port-caption">Trinity Place · exterior sign, entrance</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/kpa-lobby-sign2.jpg')">
+    <div class="port-item" onclick="openLightbox('images/kpa-lobby-sign2.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/kpa-lobby-sign2-480.webp 480w, /images/webp/kpa-lobby-sign2-800.webp 800w, /images/webp/kpa-lobby-sign2.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/kpa-lobby-sign2.jpg" width="1280" height="960" alt="Close-up of the KPA acrylic lobby sign on stand-off mounts in Arvada" loading="lazy"></picture>
-      <p class="port-caption">Lobby Sign Detail · KPA</p>
+      <p class="port-caption">KPA · lobby sign detail</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/childrens-museum-donor2.jpg')">
+    <div class="port-item" onclick="openLightbox('images/childrens-museum-donor2.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/childrens-museum-donor2-480.webp 480w, /images/webp/childrens-museum-donor2-800.webp 800w, /images/webp/childrens-museum-donor2.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/childrens-museum-donor2.jpg" width="1280" height="960" alt="Close-up of the donor recognition wall lettering at the Children&#x27;s Museum" loading="lazy"></picture>
-      <p class="port-caption">Donor Wall Detail · Children's Museum</p>
+      <p class="port-caption">Children's Museum · donor wall detail</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/dog-pony-exterior.jpg')">
+    <div class="port-item" onclick="openLightbox('images/dog-pony-exterior.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/dog-pony-exterior-480.webp 480w, /images/webp/dog-pony-exterior-800.webp 800w, /images/webp/dog-pony-exterior.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/dog-pony-exterior.jpg" width="1280" height="960" alt="Exterior storefront sign installed for Dog &amp; Pony" loading="lazy"></picture>
-      <p class="port-caption">Exterior Sign · Dog & Pony</p>
+      <p class="port-caption">Dog &amp; Pony · exterior sign</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/office-directory.jpg')">
+    <div class="port-item" onclick="openLightbox('images/office-directory.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/office-directory-480.webp 480w, /images/webp/office-directory-800.webp 800w, /images/webp/office-directory.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/office-directory.jpg" width="960" height="1280" alt="Office directory board with tenant lettering installed in a Denver lobby" loading="lazy"></picture>
-      <p class="port-caption">Directory Board Installation</p>
+      <p class="port-caption">Office lobby · directory board</p>
     </div>
-    <div class="port-item" onclick="openLightbox('images/cybertruck-rear.jpg')">
+    <div class="port-item" onclick="openLightbox('images/cybertruck-rear.jpg')" tabindex="0" role="button" aria-label="Enlarge photo">
       <picture><source type="image/webp" srcset="/images/webp/cybertruck-rear-480.webp 480w, /images/webp/cybertruck-rear-800.webp 800w, /images/webp/cybertruck-rear.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/cybertruck-rear.jpg" width="1280" height="960" alt="Rear view of Black Rock vinyl lettering on a Tesla Cybertruck" loading="lazy"></picture>
-      <p class="port-caption">Vinyl Lettering Rear · Cybertruck</p>
+      <p class="port-caption">Black Rock · Cybertruck, rear</p>
     </div>
   </div>
 </section>
@@ -250,33 +251,34 @@
       <div class="footer-col">
         <p class="footer-heading">Services</p>
         <ul>
-          <li><a href="/services/vehicle-wraps.html">Vehicle Wraps</a></li>
-          <li><a href="/services/spot-graphics.html">Spot Graphics</a></li>
-          <li><a href="/services/window-tint.html">Window Tint</a></li>
-          <li><a href="/services/window-frosting.html">Window Frosting</a></li>
-          <li><a href="/services/wall-graphics.html">Wall Graphics</a></li>
-          <li><a href="/services/lobby-signs.html">Lobby Signs</a></li>
-          <li><a href="/services/building-signs.html">Building Signs</a></li>
-          <li><a href="/services/custom-work.html">Custom Work</a></li>
+          <li><a href="/services.html">All services</a></li>
+          <li><a href="/services/vehicle-wraps.html">Vehicle wraps</a></li>
+          <li><a href="/services/spot-graphics.html">Spot graphics</a></li>
+          <li><a href="/services/window-tint.html">Window tint</a></li>
+          <li><a href="/services/window-frosting.html">Window frosting</a></li>
+          <li><a href="/services/wall-graphics.html">Wall graphics</a></li>
+          <li><a href="/services/lobby-signs.html">Lobby signs</a></li>
+          <li><a href="/services/building-signs.html">Building signs</a></li>
+          <li><a href="/services/custom-work.html">Custom work</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Company</p>
         <ul>
-          <li><a href="/about-us.html">About Us</a></li>
+          <li><a href="/about-us.html">About us</a></li>
           <li><a href="/portfolio.html">Portfolio</a></li>
-          <li><a href="/our-process.html">Our Process</a></li>
-          <li><a href="/service-area.html">Service Area</a></li>
+          <li><a href="/our-process.html">Our process</a></li>
+          <li><a href="/service-area.html">Service area</a></li>
           <li><a href="/blog.html">Blog</a></li>
-          <li><a href="/get-a-quote.html">Get a Quote</a></li>
+          <li><a href="/get-a-quote.html">Get a quote</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Contact</p>
         <ul>
-          <li><a href="tel:3038824656">303-882-4656</a></li>
+          <li><a href="tel:+13038824656">303-882-4656</a></li>
           <li><a href="mailto:highcountryfinishandrepairco@gmail.com" style="word-break:break-word;font-size:12px">highcountryfinishandrepairco<br/>@gmail.com</a></li>
-          <li style="margin-top:8px">Denver, CO & Surrounding Areas</li>
+          <li style="margin-top:8px">Denver metro &amp; Front Range</li>
         </ul>
       </div>
     </div>
@@ -286,19 +288,14 @@
     </div>
   </div>
 </footer>
+<div class="mobile-bar" aria-label="Quick contact">
+  <a href="tel:+13038824656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.4 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.48-1.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call 303-882-4656</a>
+  <a href="sms:+13038824656" class="mobile-bar-sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text photos</a>
+</div>
 <!-- /build:footer -->
-
-<a href="tel:3038824656" class="mobile-call-btn" aria-label="Call High Country Finish and Repair">
-
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.4 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.48-1.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-
-    Call or text 303-882-4656
-
-  </a>
-
 <!-- Lightbox -->
-<div id="lightbox" onclick="closeLightbox()">
-  <button id="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+<div id="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Enlarged photo">
+  <button id="lightbox-close" onclick="closeLightbox()" aria-label="Close">&#x2715;</button>
   <img id="lightbox-img" src="" alt="">
 </div>
 
@@ -359,5 +356,6 @@
   }, {threshold: 0.1});
   revealEls.forEach(el => observer.observe(el));
 </script>
+<script src="/js/site.js" defer></script>
 </body>
 </html>

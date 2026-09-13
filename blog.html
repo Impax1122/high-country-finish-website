@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/site.css?v=6d609258"/>
+<link rel="stylesheet" href="/css/site.css?v=cde758bb"/>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="application/ld+json">
@@ -67,8 +67,9 @@
   <div class="nav-links" id="nav-links">
     <a onclick="closeNav()" href="/">Home</a>
     <div class="nav-item">
-      <a href="/services.html">Services</a>
-      <div class="nav-dropdown">
+      <a href="/services.html" aria-haspopup="true" aria-expanded="false" aria-controls="nav-services">Services</a>
+      <div class="nav-dropdown" id="nav-services">
+        <a onclick="closeNav()" href="/services.html">All services</a>
         <a onclick="closeNav()" href="/services/vehicle-wraps.html">Vehicle wraps</a>
         <a onclick="closeNav()" href="/services/spot-graphics.html">Spot graphics</a>
         <a onclick="closeNav()" href="/services/window-tint.html">Window tint</a>
@@ -98,7 +99,7 @@
 
 <section class="hero">
   <div class="container">
-    <div class="gold-line"></div>
+    <span class="section-label">Blog</span>
     <h1>Blog</h1>
     <p>Practical tips, comparisons, and project guidance for business owners, office managers, and commercial clients planning sign, graphics, and window film projects in Denver and the Front Range.</p>
   </div>
@@ -108,29 +109,29 @@
   <div class="container">
     <div class="blog-grid">
       <div class="blog-card">
-        <h3>How long do vehicle wraps last in Colorado?</h3>
+        <h2 class="card-title">How long do vehicle wraps last in Colorado?</h2>
         <p>Learn how long vehicle wraps typically last in Colorado, what affects lifespan, and how to keep your wrap looking clean and professional.</p>
-        <a href="/blog/how-long-do-vehicle-wraps-last-in-colorado.html">Read about vehicle wrap lifespan in Colorado →</a>
+        <a href="/blog/how-long-do-vehicle-wraps-last-in-colorado.html">Read about vehicle wrap lifespan in Colorado&nbsp;→</a>
       </div>
       <div class="blog-card">
-        <h3>Frosted glass vs. window tint for offices: What's better?</h3>
+        <h2 class="card-title">Frosted glass vs. window tint for offices: What's better?</h2>
         <p>Compare frosted glass film and window tint for offices. Learn which option is better for privacy, glare control, appearance, and day-to-day function.</p>
-        <a href="/blog/frosted-glass-vs-window-tint-for-offices.html">Read about frosted glass vs. window tint →</a>
+        <a href="/blog/frosted-glass-vs-window-tint-for-offices.html">Read about frosted glass vs. window tint&nbsp;→</a>
       </div>
       <div class="blog-card">
-        <h3>What makes a lobby sign look expensive?</h3>
+        <h2 class="card-title">What makes a lobby sign look expensive?</h2>
         <p>Learn what separates an average lobby sign from one that looks premium, polished, and professionally installed.</p>
-        <a href="/blog/what-makes-a-lobby-sign-look-expensive.html">Read about what makes a lobby sign look expensive →</a>
+        <a href="/blog/what-makes-a-lobby-sign-look-expensive.html">Read about what makes a lobby sign look expensive&nbsp;→</a>
       </div>
       <div class="blog-card">
-        <h3>How to prepare a wall for wall graphics and murals</h3>
+        <h2 class="card-title">How to prepare a wall for wall graphics and murals</h2>
         <p>Find out how to prepare painted walls for wall graphics and murals so vinyl installs cleanly and looks its best.</p>
-        <a href="/blog/how-to-prepare-a-wall-for-wall-graphics-and-murals.html">Read about preparing a wall for graphics →</a>
+        <a href="/blog/how-to-prepare-a-wall-for-wall-graphics-and-murals.html">Read about preparing a wall for graphics&nbsp;→</a>
       </div>
       <div class="blog-card">
-        <h3>Choosing the right building sign for your Denver business</h3>
+        <h2 class="card-title">Choosing the right building sign for your Denver business</h2>
         <p>Learn how to choose the right building sign for your business based on visibility, location, branding goals, and property conditions.</p>
-        <a href="/blog/choosing-the-right-building-sign-for-your-denver-business.html">Read about choosing a building sign →</a>
+        <a href="/blog/choosing-the-right-building-sign-for-your-denver-business.html">Read about choosing a building sign&nbsp;→</a>
       </div>
     </div>
   </div>
@@ -149,33 +150,34 @@
       <div class="footer-col">
         <p class="footer-heading">Services</p>
         <ul>
-          <li><a href="/services/vehicle-wraps.html">Vehicle Wraps</a></li>
-          <li><a href="/services/spot-graphics.html">Spot Graphics</a></li>
-          <li><a href="/services/window-tint.html">Window Tint</a></li>
-          <li><a href="/services/window-frosting.html">Window Frosting</a></li>
-          <li><a href="/services/wall-graphics.html">Wall Graphics</a></li>
-          <li><a href="/services/lobby-signs.html">Lobby Signs</a></li>
-          <li><a href="/services/building-signs.html">Building Signs</a></li>
-          <li><a href="/services/custom-work.html">Custom Work</a></li>
+          <li><a href="/services.html">All services</a></li>
+          <li><a href="/services/vehicle-wraps.html">Vehicle wraps</a></li>
+          <li><a href="/services/spot-graphics.html">Spot graphics</a></li>
+          <li><a href="/services/window-tint.html">Window tint</a></li>
+          <li><a href="/services/window-frosting.html">Window frosting</a></li>
+          <li><a href="/services/wall-graphics.html">Wall graphics</a></li>
+          <li><a href="/services/lobby-signs.html">Lobby signs</a></li>
+          <li><a href="/services/building-signs.html">Building signs</a></li>
+          <li><a href="/services/custom-work.html">Custom work</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Company</p>
         <ul>
-          <li><a href="/about-us.html">About Us</a></li>
+          <li><a href="/about-us.html">About us</a></li>
           <li><a href="/portfolio.html">Portfolio</a></li>
-          <li><a href="/our-process.html">Our Process</a></li>
-          <li><a href="/service-area.html">Service Area</a></li>
+          <li><a href="/our-process.html">Our process</a></li>
+          <li><a href="/service-area.html">Service area</a></li>
           <li><a href="/blog.html">Blog</a></li>
-          <li><a href="/get-a-quote.html">Get a Quote</a></li>
+          <li><a href="/get-a-quote.html">Get a quote</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Contact</p>
         <ul>
-          <li><a href="tel:3038824656">303-882-4656</a></li>
+          <li><a href="tel:+13038824656">303-882-4656</a></li>
           <li><a href="mailto:highcountryfinishandrepairco@gmail.com" style="word-break:break-word;font-size:12px">highcountryfinishandrepairco<br/>@gmail.com</a></li>
-          <li style="margin-top:8px">Denver, CO & Surrounding Areas</li>
+          <li style="margin-top:8px">Denver metro &amp; Front Range</li>
         </ul>
       </div>
     </div>
@@ -185,6 +187,10 @@
     </div>
   </div>
 </footer>
+<div class="mobile-bar" aria-label="Quick contact">
+  <a href="tel:+13038824656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.4 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.48-1.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call 303-882-4656</a>
+  <a href="sms:+13038824656" class="mobile-bar-sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text photos</a>
+</div>
 <!-- /build:footer -->
 
 <script>
@@ -291,5 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 
+<script src="/js/site.js" defer></script>
 </body>
 </html>

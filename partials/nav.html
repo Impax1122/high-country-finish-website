@@ -7,8 +7,9 @@
   <div class="nav-links" id="nav-links">
     <a onclick="closeNav()" href="/">Home</a>
     <div class="nav-item">
-      <a href="/services.html">Services</a>
-      <div class="nav-dropdown">
+      <a href="/services.html" aria-haspopup="true" aria-expanded="false" aria-controls="nav-services">Services</a>
+      <div class="nav-dropdown" id="nav-services">
+        <a onclick="closeNav()" href="/services.html">All services</a>
         <a onclick="closeNav()" href="/services/vehicle-wraps.html">Vehicle wraps</a>
         <a onclick="closeNav()" href="/services/spot-graphics.html">Spot graphics</a>
         <a onclick="closeNav()" href="/services/window-tint.html">Window tint</a>

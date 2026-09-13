@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/site.css?v=6d609258"/>
+<link rel="stylesheet" href="/css/site.css?v=cde758bb"/>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="application/ld+json">
@@ -67,8 +67,9 @@
   <div class="nav-links" id="nav-links">
     <a onclick="closeNav()" href="/">Home</a>
     <div class="nav-item">
-      <a href="/services.html">Services</a>
-      <div class="nav-dropdown">
+      <a href="/services.html" aria-haspopup="true" aria-expanded="false" aria-controls="nav-services">Services</a>
+      <div class="nav-dropdown" id="nav-services">
+        <a onclick="closeNav()" href="/services.html">All services</a>
         <a onclick="closeNav()" href="/services/vehicle-wraps.html">Vehicle wraps</a>
         <a onclick="closeNav()" href="/services/spot-graphics.html">Spot graphics</a>
         <a onclick="closeNav()" href="/services/window-tint.html">Window tint</a>
@@ -98,85 +99,85 @@
 
 <section class="hero">
   <div class="container">
-    <div class="gold-line"></div>
+    <span class="section-label">Services</span>
     <h1>Sign &amp; graphics installation services in Denver</h1>
-    <p>We provide clean, professional installation for commercial vinyl graphics, signage, and window film across Denver and the Front Range. Explore our core services below.</p>
+    <p>Installation for Denver-metro businesses, property managers and TI contractors, and white-label installs for sign shops that need a reliable set of hands. Bring your own materials or have us source them; every service below is available install-only.</p>
   </div>
 </section>
 
 <section style="padding:100px 0;background:var(--surface);">
   <div class="container">
-    <div class="services-grid">
+    <div class="services-grid hub-grid">
       
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/957-party-vehicle-wrap-480.webp 480w, /images/webp/957-party-vehicle-wrap-800.webp 800w, /images/webp/957-party-vehicle-wrap.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/957-party-vehicle-wrap.jpg" width="1280" height="960" alt="957 The Party vehicle wrap Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Vehicle wraps</h3>
+          <h2 class="card-title">Vehicle wraps</h2>
           <p>Full wraps, partial wraps, and fleet branding installed with clean lines and a professional finish.</p>
-          <a href="/services/vehicle-wraps.html">Vehicle wrap installation in Denver →</a>
+          <a href="/services/vehicle-wraps.html">Vehicle wrap installation in Denver&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/cybertruck-side-480.webp 480w, /images/webp/cybertruck-side-800.webp 800w, /images/webp/cybertruck-side.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/cybertruck-side.jpg" width="1280" height="960" alt="Spot graphics installation Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Spot graphics</h3>
+          <h2 class="card-title">Spot graphics</h2>
           <p>Door logos, vehicle lettering, window decals, branded cut vinyl, and simple graphic packages that make a strong impression without a full wrap.</p>
-          <a href="/services/spot-graphics.html">Spot graphics, vehicle lettering and decals →</a>
+          <a href="/services/spot-graphics.html">Spot graphics, vehicle lettering and decals&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/directory-sign-480.webp 480w, /images/webp/directory-sign-800.webp 800w, /images/webp/directory-sign.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/directory-sign.jpg" width="960" height="1280" alt="Window tint installation Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Window tint</h3>
+          <h2 class="card-title">Window tint</h2>
           <p>Window tint installation for privacy, glare control, UV reduction, and a more polished appearance.</p>
-          <a href="/services/window-tint.html">Commercial window tint installation →</a>
+          <a href="/services/window-tint.html">Commercial window tint installation&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/novara-frosted-glass-480.webp 480w, /images/webp/novara-frosted-glass-800.webp 800w, /images/webp/novara-frosted-glass.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/novara-frosted-glass.jpg" width="1280" height="960" alt="Frosted window film Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Window frosting</h3>
+          <h2 class="card-title">Window frosting</h2>
           <p>Frosted film, privacy bands, and decorative glass graphics for offices, storefronts, and interior partitions.</p>
-          <a href="/services/window-frosting.html">Frosted window film for offices and storefronts →</a>
+          <a href="/services/window-frosting.html">Frosted window film for offices and storefronts&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/elite-brands-mural-wide2-480.webp 480w, /images/webp/elite-brands-mural-wide2-800.webp 800w, /images/webp/elite-brands-mural-wide2.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/elite-brands-mural-wide2.jpg" width="1280" height="960" alt="Wall graphics and murals Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Wall graphics</h3>
+          <h2 class="card-title">Wall graphics</h2>
           <p>Branded wall graphics, murals, and full-wall wraps for offices, retail, and hospitality spaces.</p>
-          <a href="/services/wall-graphics.html">Wall graphics and office murals →</a>
+          <a href="/services/wall-graphics.html">Wall graphics and office murals&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/kpa-lobby-sign-480.webp 480w, /images/webp/kpa-lobby-sign-800.webp 800w, /images/webp/kpa-lobby-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/kpa-lobby-sign.jpg" width="1280" height="960" alt="Lobby signs Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Lobby signs</h3>
+          <h2 class="card-title">Lobby signs</h2>
           <p>Reception signs, stand-off signs, acrylic panels, and dimensional letters installed with clean spacing and balance.</p>
-          <a href="/services/lobby-signs.html">Lobby sign installation in Denver →</a>
+          <a href="/services/lobby-signs.html">Lobby sign installation in Denver&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/buffalo-building-sign-480.webp 480w, /images/webp/buffalo-building-sign-800.webp 800w, /images/webp/buffalo-building-sign.webp 960w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/buffalo-building-sign.jpg" width="960" height="1280" alt="Building signs Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Building signs</h3>
+          <h2 class="card-title">Building signs</h2>
           <p>Exterior business signs, mounted panels, storefront signage, and branded exterior elements.</p>
-          <a href="/services/building-signs.html">Building and storefront sign installation →</a>
+          <a href="/services/building-signs.html">Building and storefront sign installation&nbsp;→</a>
         </div>
       </div>
 
       <div class="service-card">
         <picture><source type="image/webp" srcset="/images/webp/iheart-elevator-wrap-480.webp 480w, /images/webp/iheart-elevator-wrap-800.webp 800w, /images/webp/iheart-elevator-wrap.webp 720w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/iheart-elevator-wrap.jpg" width="720" height="1280" alt="Custom sign installation Denver" class="service-card-image"/></picture>
         <div class="service-card-content">
-          <h3>Custom work</h3>
+          <h2 class="card-title">Custom work</h2>
           <p>Specialty sign and graphics projects that don't fit a standard category.</p>
-          <a href="/services/custom-work.html">Custom sign and graphics installation →</a>
+          <a href="/services/custom-work.html">Custom sign and graphics installation&nbsp;→</a>
         </div>
       </div>
 
@@ -206,33 +207,34 @@
       <div class="footer-col">
         <p class="footer-heading">Services</p>
         <ul>
-          <li><a href="/services/vehicle-wraps.html">Vehicle Wraps</a></li>
-          <li><a href="/services/spot-graphics.html">Spot Graphics</a></li>
-          <li><a href="/services/window-tint.html">Window Tint</a></li>
-          <li><a href="/services/window-frosting.html">Window Frosting</a></li>
-          <li><a href="/services/wall-graphics.html">Wall Graphics</a></li>
-          <li><a href="/services/lobby-signs.html">Lobby Signs</a></li>
-          <li><a href="/services/building-signs.html">Building Signs</a></li>
-          <li><a href="/services/custom-work.html">Custom Work</a></li>
+          <li><a href="/services.html">All services</a></li>
+          <li><a href="/services/vehicle-wraps.html">Vehicle wraps</a></li>
+          <li><a href="/services/spot-graphics.html">Spot graphics</a></li>
+          <li><a href="/services/window-tint.html">Window tint</a></li>
+          <li><a href="/services/window-frosting.html">Window frosting</a></li>
+          <li><a href="/services/wall-graphics.html">Wall graphics</a></li>
+          <li><a href="/services/lobby-signs.html">Lobby signs</a></li>
+          <li><a href="/services/building-signs.html">Building signs</a></li>
+          <li><a href="/services/custom-work.html">Custom work</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Company</p>
         <ul>
-          <li><a href="/about-us.html">About Us</a></li>
+          <li><a href="/about-us.html">About us</a></li>
           <li><a href="/portfolio.html">Portfolio</a></li>
-          <li><a href="/our-process.html">Our Process</a></li>
-          <li><a href="/service-area.html">Service Area</a></li>
+          <li><a href="/our-process.html">Our process</a></li>
+          <li><a href="/service-area.html">Service area</a></li>
           <li><a href="/blog.html">Blog</a></li>
-          <li><a href="/get-a-quote.html">Get a Quote</a></li>
+          <li><a href="/get-a-quote.html">Get a quote</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Contact</p>
         <ul>
-          <li><a href="tel:3038824656">303-882-4656</a></li>
+          <li><a href="tel:+13038824656">303-882-4656</a></li>
           <li><a href="mailto:highcountryfinishandrepairco@gmail.com" style="word-break:break-word;font-size:12px">highcountryfinishandrepairco<br/>@gmail.com</a></li>
-          <li style="margin-top:8px">Denver, CO & Surrounding Areas</li>
+          <li style="margin-top:8px">Denver metro &amp; Front Range</li>
         </ul>
       </div>
     </div>
@@ -242,6 +244,10 @@
     </div>
   </div>
 </footer>
+<div class="mobile-bar" aria-label="Quick contact">
+  <a href="tel:+13038824656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.4 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.48-1.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call 303-882-4656</a>
+  <a href="sms:+13038824656" class="mobile-bar-sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text photos</a>
+</div>
 <!-- /build:footer -->
 
 <script>
@@ -348,5 +354,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 
+<script src="/js/site.js" defer></script>
 </body>
 </html>

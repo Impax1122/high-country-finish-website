@@ -56,7 +56,7 @@ for img in no_alt:
     print(f"  {img[:120]}")
 
 # Footer NAP check
-has_address = '9563 Joyce Way' in content
+has_address = '[address withheld]' in content
 has_phone_footer = '303-882-4656' in content
 print(f"\nFOOTER HAS ADDRESS: {has_address}")
 print(f"FOOTER HAS PHONE: {has_phone_footer}")

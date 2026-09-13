@@ -60,7 +60,7 @@ schema = """
   "telephone": "303-882-4656",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "9563 Joyce Way",
+    "streetAddress": "[address withheld]",
     "addressLocality": "Arvada",
     "addressRegion": "CO",
     "postalCode": "80007",
@@ -177,7 +177,7 @@ old_footer_brand = '''        <p>Denver's premier vinyl wrap, sign, and window t
 new_footer_brand = '''        <p>Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time.</p>
         <address style="font-size:12px;color:var(--muted);margin-top:14px;font-style:normal;line-height:1.9;">
           High Country Finish &amp; Repair CO<br/>
-          9563 Joyce Way, Arvada, CO 80007<br/>
+          [address withheld]<br/>
           <a href="tel:3038824656" style="color:var(--muted)">303-882-4656</a>
         </address>
       </div>'''

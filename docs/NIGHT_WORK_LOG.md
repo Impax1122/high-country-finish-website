@@ -130,7 +130,7 @@ None
 **6. NAP Consistency**
    - Standardized: "High Country Finish & Repair CO" (with &)
    - Phone: 303-882-4656 (consistent across all pages)
-   - Address: 9563 Joyce Way, Arvada, CO 80007
+   - Address: withheld (city-level only on the site)
 
 ---
 

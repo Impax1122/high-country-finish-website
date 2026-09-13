@@ -45,14 +45,14 @@ print("\n=== TASK 3: Address update ===")
 
 # The JSON-LD currently has parts split across fields. Find any plain-text or
 # combined address occurrences and replace. Also check for old street numbers.
-new_address = "9563 Joyce Way, Arvada, Colorado 80007"
+new_address = "[address withheld]"
 
 # Pattern: any variation of the address that might appear as combined text
 old_address_patterns = [
     # Common old patterns that might exist
-    r"\d{4}\s+Joyce\s+Way[,\s]+Arvada[,\s]+Colorado\s+\d{5}",
-    r"\d{4}\s+Joyce\s+Way[,\s]+Arvada[,\s]+CO\s+\d{5}",
-    r"9563 Joyce Way, Arvada, CO 80007",
+    r"\d{4}\s+[street][,\s]+Arvada[,\s]+Colorado\s+\d{5}",
+    r"\d{4}\s+[street][,\s]+Arvada[,\s]+CO\s+\d{5}",
+    r"[address withheld]",
 ]
 
 found_address = False
@@ -69,7 +69,7 @@ for pat in old_address_patterns:
                 found_address = True
 
 # Check if address appears in "CO" abbreviated form separate from JSON-LD
-co_variant = "9563 Joyce Way, Arvada, CO 80007"
+co_variant = "[address withheld]"
 if co_variant in index_html:
     index_html = index_html.replace(co_variant, new_address)
     print(f"  REPLACED: '{co_variant}' → '{new_address}'")

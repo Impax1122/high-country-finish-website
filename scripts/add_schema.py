@@ -13,7 +13,7 @@ schema = '''
   "email": "highcountryfinishandrepairco@gmail.com",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "9563 Joyce Way",
+    "streetAddress": "[address withheld]",
     "addressLocality": "Arvada",
     "addressRegion": "CO",
     "postalCode": "80007",
