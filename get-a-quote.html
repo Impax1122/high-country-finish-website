@@ -22,185 +22,16 @@
 <meta name="twitter:image" content="https://highcountryfinish.com/images/og-home.jpg"/>
 <meta name="geo.region" content="US-CO"/>
 <meta name="geo.placename" content="Denver"/>
-<meta name="theme-color" content="#0c0c0c"/>
+<meta name="theme-color" content="#faf9f5"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/site.css?v=b784db81"/>
-<style>
-.cta-button.secondary {
-  background: transparent;
-  color: var(--gold);
-  margin-left: 16px;
-}
-.cta-button.secondary:hover {
-  background: var(--surface);
-}
-/* ─── CONTENT SECTIONS ────────────────────── */
-.content-section {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-}
-.content-section:nth-child(even) {
-  background: var(--black);
-}
-/* ─── IMAGE BLOCKS ────────────────────────── */
-.image-feature {
-  width: 100%;
-  max-width: 800px;
-  margin: 40px 0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.image-feature img {
-  width: 100%;
-  height: auto;
-}
-/* ─── GRID LAYOUTS ────────────────────────── */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  margin-top: 60px;
-}
-.service-card {
-  background: var(--surface2);
-  padding: 32px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  transition: border-color 0.2s;
-}
-.service-card:hover {
-  border-color: var(--gold-dark);
-}
-.service-card h3 {
-  font-size: 24px;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-.service-card p {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-.service-card a {
-  display: inline-block;
-  margin-top: 16px;
-  color: var(--gold);
-  font-size: 14px;
-  font-weight: 600;
-}
-/* ─── CONTACT FORM ────────────────────────── */
-#contact { background: var(--black); }
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 80px;
-  align-items: start;
-}
-.contact-info { padding-top: 8px; }
-.contact-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-.contact-detail .icon {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--gold);
-}
-.contact-detail .dl { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 4px; }
-.contact-detail .dv { font-size: 15px; font-weight: 500; color: var(--text); }
-.contact-detail .dv a:hover { color: var(--gold); }
-.quote-form {
-  background: var(--surface);
-  padding: 48px;
-  border: 1px solid var(--border);
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.form-group {
-  margin-bottom: 20px;
-}
-.form-group label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  background: var(--black);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 13px 16px;
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-  border-radius: 2px;
-  outline: none;
-  transition: border-color .2s;
-  appearance: none;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus { border-color: var(--gold); }
-.form-group textarea { resize: vertical; min-height: 120px; }
-.form-group select { cursor: pointer; }
-.form-submit {
-  width: 100%;
-  background: var(--gold);
-  color: #000;
-  border: none;
-  padding: 16px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 2px;
-  font-family: 'Inter', sans-serif;
-  transition: background .2s;
-  margin-top: 8px;
-}
-.form-submit:hover { background: var(--gold-light); }
-.form-note { font-size: 12px; color: var(--muted); margin-top: 12px; text-align: center; }
-.form-success {
-  display: none;
-  padding: 32px;
-  background: rgba(201,168,76,.08);
-  border: 1px solid var(--gold);
-  border-radius: 4px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--gold);
-  margin-top: 24px;
-}
-@media(max-width:768px) {
-  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-  .quote-form { padding: 32px 24px; }
-  .form-row { grid-template-columns: 1fr; }
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/site.css?v=3bedee81"/>
+
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="application/ld+json">
 {
@@ -230,7 +61,7 @@
 <nav id="nav">
 
   <a href="/" class="nav-logo">
-    <img src="/images/logo.png" width="189" height="160" alt="High Country Finish and Repair CO" class="nav-logo-img"/>
+    <img src="/images/logo-ink.png" width="189" height="160" alt="High Country Finish and Repair CO" class="nav-logo-img"/>
   </a>
 
   <div class="nav-links" id="nav-links">
@@ -264,7 +95,6 @@
 </nav>
 <!-- /build:nav -->
 <main id="main">
-
 
 <section class="hero">
   <div class="container">
@@ -313,7 +143,7 @@
     <h2 class="section-title">Help Us Quote Your Project Accurately</h2>
     <div class="section-body">
       <p>To help us quote your project accurately, send as much of the following as you can:</p>
-      <ul style="margin-top:24px;margin-left:20px;color:var(--muted);">
+      <ul style="margin-top:20px;margin-left:20px;line-height:1.9;">
         <li>Service needed</li>
         <li>Approximate dimensions</li>
         <li>Photos of the surface or site</li>
@@ -332,14 +162,12 @@
     <div class="section-body">
       <p>We aim to respond quickly and keep the quoting process simple. If you do not have every detail yet, that is okay. Send what you have and we will help you figure out the next step.</p>
       <p style="margin-top:40px;font-size:18px;">
-        <strong>Call:</strong> <a href="tel:3038824656" style="color:var(--gold);">303-882-4656</a><br/>
-        <strong>Email:</strong> <a href="mailto:highcountryfinishandrepairco@gmail.com" style="color:var(--gold);">highcountryfinishandrepairco@gmail.com</a>
+        <strong>Call:</strong> <a href="tel:3038824656">303-882-4656</a><br/>
+        <strong>Email:</strong> <a href="mailto:highcountryfinishandrepairco@gmail.com">highcountryfinishandrepairco@gmail.com</a>
       </p>
     </div>
   </div>
 </section>
-
-
 
 <section id="contact" style="padding:80px 0;background:var(--surface);border-top:1px solid var(--border);">
   <div class="container">
@@ -380,7 +208,7 @@
       </div>
       <div>
         <div class="quote-form">
-          <h3 style="font-size:26px;margin-bottom:28px;">Request a Free Quote</h3>
+          <h3>Request a Free Quote</h3>
           <form id="quote-form" action="https://formspree.io/f/mqeydnkg" method="POST">
             <input type="hidden" name="_subject" value="New quote request from highcountryfinish.com"/>
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"/>
@@ -427,12 +255,12 @@
               <label for="q-message">Project Details</label>
               <textarea id="q-message" name="message" placeholder="Tell us about your project — vehicle type, dimensions, timeline, any specific requirements..."></textarea>
             </div>
-            <button type="submit" class="form-submit">Send My Quote Request →</button>
+            <button type="submit" class="form-submit">Send my quote request</button>
             <p class="form-note">We respond within 24 hours. No spam, ever.</p>
           </form>
           <div class="form-success" id="form-success">
             ✓ Message received!<br/>
-            <span style="font-size:15px;font-family:Inter,sans-serif;color:var(--muted)">We'll be in touch within 24 hours.</span>
+            <span>We'll be in touch within 24 hours.</span>
           </div>
         </div>
       </div>
@@ -447,9 +275,8 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo-main">High Country</div>
-        <div class="logo-sub">Finish and Repair CO</div>
-        <p>Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time.</p>
+        <img class="footer-logo-img" src="/images/logo-light.png" width="189" height="160" alt="High Country Finish and Repair CO" loading="lazy"/>
+        <p>Sign and graphics installation for Denver-metro businesses and the sign shops that serve them. Precision installs, every time.</p>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Services</p>
@@ -559,8 +386,6 @@ if (servicesItem) {
 }
 
 }); // End DOMContentLoaded
-
-
 
 // Make all cards fully clickable
 document.addEventListener('DOMContentLoaded', function() {

@@ -22,74 +22,16 @@
 <meta name="twitter:image" content="https://highcountryfinish.com/images/og/post-frosted-vs-tint.jpg"/>
 <meta name="geo.region" content="US-CO"/>
 <meta name="geo.placename" content="Denver"/>
-<meta name="theme-color" content="#0c0c0c"/>
+<meta name="theme-color" content="#faf9f5"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/site.css?v=b784db81"/>
-<style>
-/* ─── CONTENT SECTIONS ────────────────────── */
-.content-section {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-}
-.content-section:nth-child(even) {
-  background: var(--black);
-}
-/* ─── ARTICLE STYLES ──────────────────────── */
-article {
-  max-width: 720px;
-  margin: 0 auto;
-}
-article h2 {
-  font-size: clamp(28px, 4vw, 42px);
-  margin: 60px 0 20px;
-  color: var(--text);
-}
-article p {
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-/* ─── BLOG INDEX GRID ─────────────────────── */
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 40px;
-  margin-top: 60px;
-}
-.blog-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 32px;
-  transition: border-color 0.2s;
-}
-.blog-card:hover {
-  border-color: var(--gold-dark);
-}
-.blog-card h3 {
-  font-size: 24px;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-.blog-card p {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-.blog-card a {
-  color: var(--gold);
-  font-size: 14px;
-  font-weight: 600;
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/site.css?v=3bedee81"/>
+
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="application/ld+json">
 {
@@ -151,7 +93,7 @@ article p {
 <nav id="nav">
 
   <a href="/" class="nav-logo">
-    <img src="/images/logo.png" width="189" height="160" alt="High Country Finish and Repair CO" class="nav-logo-img"/>
+    <img src="/images/logo-ink.png" width="189" height="160" alt="High Country Finish and Repair CO" class="nav-logo-img"/>
   </a>
 
   <div class="nav-links" id="nav-links">
@@ -185,7 +127,6 @@ article p {
 </nav>
 <!-- /build:nav -->
 <main id="main">
-
 
 <section class="hero">
   <div class="container">
@@ -230,7 +171,6 @@ article p {
   </div>
 </section>
 
-
 </main>
 
 <!-- build:footer -->
@@ -238,9 +178,8 @@ article p {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo-main">High Country</div>
-        <div class="logo-sub">Finish and Repair CO</div>
-        <p>Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time.</p>
+        <img class="footer-logo-img" src="/images/logo-light.png" width="189" height="160" alt="High Country Finish and Repair CO" loading="lazy"/>
+        <p>Sign and graphics installation for Denver-metro businesses and the sign shops that serve them. Precision installs, every time.</p>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Services</p>
@@ -348,8 +287,6 @@ if (servicesItem) {
 }
 
 }); // End DOMContentLoaded
-
-
 
 // Make all cards fully clickable
 document.addEventListener('DOMContentLoaded', function() {

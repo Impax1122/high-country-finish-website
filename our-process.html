@@ -22,79 +22,16 @@
 <meta name="twitter:image" content="https://highcountryfinish.com/images/og/our-process.jpg"/>
 <meta name="geo.region" content="US-CO"/>
 <meta name="geo.placename" content="Denver"/>
-<meta name="theme-color" content="#0c0c0c"/>
+<meta name="theme-color" content="#faf9f5"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png"/>
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/site.css?v=b784db81"/>
-<style>
-.cta-button.secondary {
-  background: transparent;
-  color: var(--gold);
-  margin-left: 16px;
-}
-.cta-button.secondary:hover {
-  background: var(--surface);
-}
-/* ─── CONTENT SECTIONS ────────────────────── */
-.content-section {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-}
-.content-section:nth-child(even) {
-  background: var(--black);
-}
-/* ─── IMAGE BLOCKS ────────────────────────── */
-.image-feature {
-  width: 100%;
-  max-width: 800px;
-  margin: 40px 0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.image-feature img {
-  width: 100%;
-  height: auto;
-}
-/* ─── GRID LAYOUTS ────────────────────────── */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  margin-top: 60px;
-}
-.service-card {
-  background: var(--surface2);
-  padding: 32px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  transition: border-color 0.2s;
-}
-.service-card:hover {
-  border-color: var(--gold-dark);
-}
-.service-card h3 {
-  font-size: 24px;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-.service-card p {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-.service-card a {
-  display: inline-block;
-  margin-top: 16px;
-  color: var(--gold);
-  font-size: 14px;
-  font-weight: 600;
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/site.css?v=3bedee81"/>
+
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="application/ld+json">
 {
@@ -124,7 +61,7 @@
 <nav id="nav">
 
   <a href="/" class="nav-logo">
-    <img src="/images/logo.png" width="189" height="160" alt="High Country Finish and Repair CO" class="nav-logo-img"/>
+    <img src="/images/logo-ink.png" width="189" height="160" alt="High Country Finish and Repair CO" class="nav-logo-img"/>
   </a>
 
   <div class="nav-links" id="nav-links">
@@ -158,7 +95,6 @@
 </nav>
 <!-- /build:nav -->
 <main id="main">
-
 
 <section class="hero">
   <div class="container">
@@ -233,7 +169,6 @@
   </div>
 </section>
 
-
 <section class="content-section related-section">
   <div class="container">
     <span class="section-label">What We Install</span>
@@ -258,9 +193,8 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo-main">High Country</div>
-        <div class="logo-sub">Finish and Repair CO</div>
-        <p>Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time.</p>
+        <img class="footer-logo-img" src="/images/logo-light.png" width="189" height="160" alt="High Country Finish and Repair CO" loading="lazy"/>
+        <p>Sign and graphics installation for Denver-metro businesses and the sign shops that serve them. Precision installs, every time.</p>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Services</p>
@@ -370,8 +304,6 @@ if (servicesItem) {
 }
 
 }); // End DOMContentLoaded
-
-
 
 // Make all cards fully clickable
 document.addEventListener('DOMContentLoaded', function() {
