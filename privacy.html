@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Wall Graphics Installation Denver | Murals & Office Branding</title>
-<meta name="description" content="Professional wall graphics installation in Denver and the Front Range for branded offices, murals, retail interiors, and large-format wall wraps."/>
-<link rel="canonical" href="https://highcountryfinish.com/services/wall-graphics.html"/>
+<title>Privacy Policy | High Country Finish and Repair CO</title>
+<meta name="description" content="How High Country Finish and Repair CO handles the information you send through our quote form, and what our website does and does not collect."/>
+<link rel="canonical" href="https://highcountryfinish.com/privacy.html"/>
 <meta name="robots" content="index, follow"/>
 <meta property="og:site_name" content="High Country Finish and Repair CO"/>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://highcountryfinish.com/services/wall-graphics.html"/>
-<meta property="og:title" content="Wall Graphics Installation Denver | Murals &amp; Office Branding"/>
-<meta property="og:description" content="Professional wall graphics installation in Denver and the Front Range for branded offices, murals, retail interiors, and large-format wall wraps."/>
-<meta property="og:image" content="https://highcountryfinish.com/images/og/wall-graphics.jpg"/>
+<meta property="og:url" content="https://highcountryfinish.com/privacy.html"/>
+<meta property="og:title" content="Privacy Policy | High Country Finish and Repair CO"/>
+<meta property="og:description" content="How High Country Finish and Repair CO handles the information you send through our quote form, and what our website does and does not collect."/>
+<meta property="og:image" content="https://highcountryfinish.com/images/og-home.jpg"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="High Country Finish and Repair CO — Denver sign and vinyl graphics installation"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Wall Graphics Installation Denver | Murals &amp; Office Branding"/>
-<meta name="twitter:description" content="Professional wall graphics installation in Denver and the Front Range for branded offices, murals, retail interiors, and large-format wall wraps."/>
-<meta name="twitter:image" content="https://highcountryfinish.com/images/og/wall-graphics.jpg"/>
+<meta name="twitter:title" content="Privacy Policy | High Country Finish and Repair CO"/>
+<meta name="twitter:description" content="How High Country Finish and Repair CO handles the information you send through our quote form, and what our website does and does not collect."/>
+<meta name="twitter:image" content="https://highcountryfinish.com/images/og-home.jpg"/>
 <meta name="geo.region" content="US-CO"/>
 <meta name="geo.placename" content="Denver"/>
 <meta name="theme-color" content="#0c0c0c"/>
@@ -40,97 +40,104 @@
 .content-section:nth-child(even) {
   background: var(--black);
 }
-/* ─── IMAGE BLOCKS ────────────────────────── */
-.image-feature {
-  width: 100%;
-  max-width: 800px;
-  margin: 40px 0;
-  border-radius: 4px;
-  overflow: hidden;
+/* ─── ARTICLE STYLES ──────────────────────── */
+article {
+  max-width: 720px;
+  margin: 0 auto;
 }
-.image-feature img {
+article h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 60px 0 20px;
+  color: var(--text);
+}
+article p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+/* ─── BLOG INDEX GRID ─────────────────────── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
+.blog-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px;
+  transition: border-color 0.2s;
+}
+.blog-card:hover {
+  border-color: var(--gold-dark);
+}
+.blog-card h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.blog-card p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.blog-card a {
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
+}
+/* ─── LONG-FORM POST EXTRAS ───────────────── */
+article h3 {
+  font-size: 23px;
+  margin: 36px 0 12px;
+  color: var(--text);
+}
+article ul, article ol {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 0 0 24px 22px;
+}
+article li { margin-bottom: 10px; }
+article li strong, article p strong { color: var(--text); font-weight: 600; }
+article p a, article li a, article td a { color: var(--gold); }
+article p a:hover, article li a:hover, article td a:hover { color: var(--gold-light); text-decoration: underline; }
+article a.cta-button:hover { text-decoration: none; }
+.post-lede { font-size: 19px; color: var(--text); }
+.post-sources { font-size: 14px; line-height: 1.7; border-top: 1px solid var(--border); padding-top: 20px; }
+.post-figure { margin: 40px 0; }
+.post-figure img { width: 100%; height: auto; border-radius: 4px; }
+.post-figure figcaption { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+.post-table {
   width: 100%;
-  height: auto;
+  border-collapse: collapse;
+  margin: 8px 0 32px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.post-table th, .post-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.post-table th {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.post-table td:first-child { color: var(--text); }
+@media (max-width: 600px) {
+  .post-table { display: block; overflow-x: auto; }
+  article ul, article ol { margin-left: 18px; }
 }
 </style>
-  
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": "Wall Graphics and Murals Installation",
-  "provider": {
-    "@id": "https://highcountryfinish.com/#business",
-    "@type": "LocalBusiness",
-    "name": "High Country Finish and Repair CO",
-    "telephone": "303-882-4656",
-    "url": "https://highcountryfinish.com/",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Arvada",
-      "addressRegion": "CO",
-      "addressCountry": "US"
-    }
-  },
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Denver"
-    },
-    {
-      "@type": "City",
-      "name": "Arvada"
-    },
-    {
-      "@type": "City",
-      "name": "Aurora"
-    },
-    {
-      "@type": "City",
-      "name": "Lakewood"
-    },
-    {
-      "@type": "City",
-      "name": "Englewood"
-    },
-    {
-      "@type": "City",
-      "name": "Thornton"
-    },
-    {
-      "@type": "City",
-      "name": "Westminster"
-    },
-    {
-      "@type": "City",
-      "name": "Broomfield"
-    },
-    {
-      "@type": "City",
-      "name": "Littleton"
-    },
-    {
-      "@type": "City",
-      "name": "Castle Rock"
-    },
-    {
-      "@type": "City",
-      "name": "Boulder"
-    },
-    {
-      "@type": "City",
-      "name": "Golden"
-    },
-    {
-      "@type": "City",
-      "name": "Wheat Ridge"
-    }
-  ],
-  "description": "Custom wall graphics and mural installation services for Denver businesses, transforming spaces with vibrant, durable vinyl installations.",
-  "url": "https://highcountryfinish.com/services/wall-graphics.html",
-  "image": "https://highcountryfinish.com/images/og/wall-graphics.jpg"
-}
-</script>
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="application/ld+json">
 {
@@ -146,14 +153,8 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Services",
-      "item": "https://highcountryfinish.com/services.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Wall Graphics",
-      "item": "https://highcountryfinish.com/services/wall-graphics.html"
+      "name": "Privacy Policy",
+      "item": "https://highcountryfinish.com/privacy.html"
     }
   ]
 }
@@ -205,74 +206,71 @@
 <section class="hero">
   <div class="container">
     <div class="gold-line"></div>
-    <h1>Wall Graphics Installation</h1>
-    <p>Wall graphics turn blank surfaces into branded, high-impact spaces. High Country Finish and Repair Co. installs wall graphics, murals, and wall wraps for offices, retail spaces, hospitality environments, and commercial interiors throughout Denver and the Front Range.</p>
+    <h1>Privacy Policy</h1>
+    <p class="post-meta">Effective September 17, 2026 · High Country Finish and Repair CO</p>
   </div>
 </section>
 
 <section class="content-section">
   <div class="container">
-    <span class="section-label">Branded Walls</span>
-    <h2 class="section-title">Branded Walls That Transform a Space</h2>
-    <div class="section-body">
-      <p>Wall graphics can be bold and attention-grabbing or subtle and refined. We install everything from simple logo graphics and statement walls to full environmental branding packages and large-format murals.</p>
-    </div>
-    <div class="image-feature">
-      <picture><source type="image/webp" srcset="/images/webp/elite-brands-mural-wide2-480.webp 480w, /images/webp/elite-brands-mural-wide2-800.webp 800w, /images/webp/elite-brands-mural-wide2.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/elite-brands-mural-wide2.jpg" width="1280" height="960" alt="Elite Brands large wall mural Denver — professional wall graphics installation" fetchpriority="high"/></picture>
-    </div>
-  </div>
-</section>
+    <article>
+      <p class="post-lede">This page explains what information High Country Finish and Repair CO collects when you use highcountryfinish.com, what we do with it, and the choices you have. The short version: we receive what you send us to request a quote, our hosting provider keeps standard server logs, and we do not run advertising trackers or sell anyone's information.</p>
 
-<section class="content-section">
-  <div class="container">
-    <span class="section-label">Applications</span>
-    <h2 class="section-title">Where Wall Graphics Work Best</h2>
-    <div class="section-body">
-      <ul style="margin-top:24px;margin-left:20px;color:var(--muted);line-height:2;">
-        <li>Office lobbies</li>
-        <li>Conference rooms</li>
-        <li>Hallways</li>
-        <li>Retail interiors</li>
-        <li>Gyms and fitness spaces</li>
-        <li>Restaurants and hospitality spaces</li>
-        <li>Branded work environments</li>
+      <h2>Who We Are</h2>
+      <p>High Country Finish and Repair CO is a commercial sign and vinyl graphics installer based in Arvada, Colorado, serving Denver and the Front Range. You can reach us at <a href="tel:3038824656">303-882-4656</a> or <a href="mailto:highcountryfinishandrepairco@gmail.com">highcountryfinishandrepairco@gmail.com</a>.</p>
+
+      <h2>Information You Send Us</h2>
+      <p>When you submit the quote form on this site, we receive what you enter: your name, phone number, email address, the service you are asking about, and anything you write in the message field. The form is processed by Formspree, a form-handling service, which delivers the submission to our email inbox. Formspree's own privacy policy governs how it handles submissions on its servers.</p>
+      <p>If you call or email us directly, we keep the correspondence and any project details you share, such as site addresses, photos, drawings, and measurements, as part of the job file.</p>
+
+      <h2>Information Collected Automatically</h2>
+      <ul>
+      <li><strong>Server logs.</strong> The site is hosted by Netlify. Like every web host, Netlify records standard technical information about each request, such as the IP address, browser type, the page requested, and the time, in order to serve the site and protect it from abuse.</li>
+      <li><strong>Fonts.</strong> The site's typefaces are loaded from Google Fonts. When a page loads, your browser requests the font files from Google's servers, which receive your IP address as part of that request.</li>
+      <li><strong>Cookies and analytics.</strong> We do not set cookies, and this site does not currently use analytics or advertising trackers. If we add a visitor-analytics tool in the future, we will update this page to say what it collects.</li>
       </ul>
-    </div>
-    <div class="image-feature">
-      <picture><source type="image/webp" srcset="/images/webp/gque-bbq-mural-480.webp 480w, /images/webp/gque-bbq-mural-800.webp 800w, /images/webp/gque-bbq-mural.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="/images/gque-bbq-mural.jpg" width="1280" height="960" alt="Gque BBQ wall mural Denver — restaurant interior branding" loading="lazy"/></picture>
-    </div>
+
+      <h2>How We Use Information</h2>
+      <ul>
+      <li>To respond to your quote request, prepare an estimate, schedule a site visit, and complete the work.</li>
+      <li>To keep business records of the jobs we perform, including photos of completed installations.</li>
+      <li>To follow up on a request you made. We do not add you to a marketing list unless you ask to be on one.</li>
+      </ul>
+      <p>We do not sell, rent, or trade personal information.</p>
+
+      <h2>Who We Share It With</h2>
+      <p>Only the service providers that make the site and our business work: Formspree for form processing, Netlify for hosting, Google for fonts and for the email service that holds our inbox, and, when a job requires it, subcontractors or suppliers who need site details to complete your project. We may also disclose information when the law requires it.</p>
+
+      <h2>Project Photos</h2>
+      <p>We photograph completed installations for our records and our portfolio. Photos on this site show signage and graphics, not people, and we do not publish a client's name alongside a project without permission. If you would prefer that your project not appear in our portfolio, tell us before or after the install and we will honor it.</p>
+
+      <h2>How Long We Keep It</h2>
+      <p>Quote requests and job records are kept as long as we need them for the project, for warranty purposes, and for ordinary business and tax record-keeping. You can ask us to delete your quote request at any time.</p>
+
+      <h2>Your Choices</h2>
+      <ul>
+      <li>You can ask for a copy of the information we hold about you, ask us to correct it, or ask us to delete it, by emailing or calling us.</li>
+      <li>You can request a quote by phone instead of using the form.</li>
+      <li>Your browser can block third-party requests such as fonts. The site still works without them.</li>
+      </ul>
+
+      <h2>Links to Other Sites</h2>
+      <p>Some articles link to outside resources such as code organizations and government agencies. Those sites have their own privacy practices, which we do not control.</p>
+
+      <h2>Children</h2>
+      <p>This site is intended for businesses and adults. We do not knowingly collect information from children under 13.</p>
+
+      <h2>Changes</h2>
+      <p>If we change how we handle information, we will update this page and change the effective date at the top.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy: <a href="mailto:highcountryfinishandrepairco@gmail.com">highcountryfinishandrepairco@gmail.com</a> or <a href="tel:3038824656">303-882-4656</a>.</p>
+
+      <p style="margin-top:48px;"><a href="/get-a-quote.html" class="cta-button">Request a Quote</a></p>
+    </article>
   </div>
 </section>
 
-<section class="content-section">
-  <div class="container">
-    <span class="section-label">Installation Quality</span>
-    <h2 class="section-title">Professional Install Makes the Difference</h2>
-    <div class="section-body">
-      <p>Large-format wall graphics need careful layout, surface prep, and finish work to look clean. We focus on alignment, seam control, trimming, and overall presentation so the finished wall feels intentional and polished.</p>
-      <p style="margin-top:40px;">If you want to add branding, energy, or visual impact to a commercial interior, wall graphics are one of the most effective upgrades you can make.</p>
-      <p style="margin-top:32px;"><a href="/get-a-quote.html" class="cta-button">Request a Wall Graphics Quote</a></p>
-    </div>
-  </div>
-</section>
-
-
-<section class="content-section related-section">
-  <div class="container">
-    <span class="section-label">Related</span>
-    <h2 class="section-title">Related Services and Reading</h2>
-    <ul class="related-list">
-      <li><a href="/services/lobby-signs.html">Lobby sign installation in Denver</a></li>
-      <li><a href="/services/window-frosting.html">Frosted window film for offices and storefronts</a></li>
-      <li><a href="/services/custom-work.html">Custom sign and graphics installation</a></li>
-      <li><a href="/blog/how-to-prepare-a-wall-for-wall-graphics-and-murals.html">From the blog: How to Prepare a Wall for Wall Graphics and Murals</a></li>
-      <li><a href="/blog/wall-wraps-vs-paint-for-commercial-interiors.html">From the blog: Wall Wraps vs. Paint for Commercial Interiors</a></li>
-      <li><a href="/blog/what-to-expect-during-a-commercial-wall-wrap-installation.html">From the blog: What to Expect During a Commercial Wall Wrap Installation</a></li>
-      <li><a href="/blog/can-you-wrap-a-textured-wall.html">From the blog: Can You Wrap a Textured Wall? Drywall, Concrete and Brick</a></li>
-      <li><a href="/portfolio.html">See wall mural projects in our portfolio</a></li>
-    </ul>
-  </div>
-</section>
 
 </main>
 

@@ -55,14 +55,14 @@ if (fs.existsSync(cssPath)) {
   }
 }
 
-// --- sitemap.xml: one entry per page (404 excluded), lastmod from git, image entries for the photo pages.
+// --- sitemap.xml: one entry per page (404 excluded), lastmod from git, image entries for the photo pages; feed.xml from the posts.
 // Only regenerated locally (not in --check), because Netlify's shallow clone has no per-file history.
 if (!check) {
   const { execSync } = require('child_process');
   const SITE = 'https://highcountryfinish.com';
   const today = new Date().toISOString().slice(0, 10);
   const lastmod = (rel) => { try { return execSync(`git log -1 --format=%cs -- "${rel}"`, { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() || today; } catch { return today; } };
-  const prio = (rel) => rel === 'index.html' ? '1.0' : /^(services|portfolio|get-a-quote)\.html$/.test(rel) ? '0.9' : rel.startsWith('services/') ? '0.8' : rel.startsWith('blog/') ? '0.6' : '0.7';
+  const prio = (rel) => rel === 'index.html' ? '1.0' : rel === 'privacy.html' ? '0.3' : /^(services|portfolio|get-a-quote)\.html$/.test(rel) ? '0.9' : rel.startsWith('services/') ? '0.8' : rel.startsWith('blog/') ? '0.6' : '0.7';
   const freq = (rel) => /^(index|portfolio|blog)\.html$/.test(rel) ? 'weekly' : 'monthly';
   const entries = pages.filter(r => r !== '404.html').map(rel => {
     const loc = rel === 'index.html' ? SITE + '/' : `${SITE}/${rel}`;
@@ -77,6 +77,22 @@ if (!check) {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.join('\n')}\n</urlset>\n`;
   const smPath = path.join(ROOT, 'sitemap.xml');
   if (!fs.existsSync(smPath) || fs.readFileSync(smPath, 'utf8') !== xml) { fs.writeFileSync(smPath, xml); console.log('sitemap.xml regenerated'); }
+
+  // --- feed.xml: RSS 2.0 built from the BlogPosting schema block in each post (newest first).
+  const xesc = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const rfc822 = (d) => new Date(`${d}T12:00:00Z`).toUTCString();
+  const posts = pages.filter(r => r.startsWith('blog/')).map(rel => {
+    const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    const re = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g; let m;
+    while ((m = re.exec(html))) {
+      try { const j = JSON.parse(m[1]); if (j['@type'] === 'BlogPosting') return { rel, title: j.headline, desc: j.description, pub: j.datePublished, mod: j.dateModified || j.datePublished, section: j.articleSection || '' }; } catch { /* skip malformed block */ }
+    }
+    return null;
+  }).filter(Boolean).sort((a, b) => b.pub.localeCompare(a.pub) || a.title.localeCompare(b.title));
+  const items = posts.map(p => `    <item>\n      <title>${xesc(p.title)}</title>\n      <link>${SITE}/${p.rel}</link>\n      <guid isPermaLink="true">${SITE}/${p.rel}</guid>\n      <pubDate>${rfc822(p.pub)}</pubDate>\n      <description>${xesc(p.desc)}</description>${p.section ? `\n      <category>${xesc(p.section)}</category>` : ''}\n    </item>`);
+  const rss = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>High Country Finish and Repair CO Blog</title>\n    <link>${SITE}/blog.html</link>\n    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>\n    <description>Guides on wall wraps, commercial sign installation, vehicle wraps, window film, lobby signs and building signage for Denver businesses.</description>\n    <language>en-us</language>\n    <lastBuildDate>${posts.length ? rfc822(posts.map(p => p.mod).sort().pop()) : new Date().toUTCString()}</lastBuildDate>\n${items.join('\n')}\n  </channel>\n</rss>\n`;
+  const feedPath = path.join(ROOT, 'feed.xml');
+  if (!fs.existsSync(feedPath) || fs.readFileSync(feedPath, 'utf8') !== rss) { fs.writeFileSync(feedPath, rss); console.log('feed.xml regenerated'); }
 }
 
 for (const m of missing) console.error(`warning: ${m}`);
