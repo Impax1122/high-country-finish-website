@@ -2,8 +2,11 @@
   publish = "."
   command = "node build.js --check"
 
+# Keep internal links as /page.html so they match the canonical tags and sitemap.
+# With pretty_urls on, Netlify rewrote every link to /page while canonicals said /page.html,
+# which split ranking signals across two URLs for every page (both returned 200).
 [build.processing.html]
-  pretty_urls = true
+  pretty_urls = false
 
 # Repo tooling and internal notes live in scripts/ and docs/ — never serve them.
 [[redirects]]

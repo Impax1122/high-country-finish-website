@@ -17,7 +17,7 @@ images/               Photos, logo, share card (og-home.jpg), favicons
 sitemap.xml, robots.txt, netlify.toml, favicon.ico
 partials/             nav.html and footer.html — the single source for the shared nav/footer
 build.js              Copies the partials into every page (node build.js; --check on deploy)
-docs/                 Brand guide, launch guide and build logs (not served)
+docs/                 Brand guide, launch guide, SEO audit, e-commerce roadmap and build logs (not served)
 scripts/              Historical one-off build/patch scripts (not served, do not re-run)
 ```
 
@@ -27,7 +27,7 @@ scripts/              Historical one-off build/patch scripts (not served, do not
   then run `node build.js` to copy it into every page (each page holds the block between
   `<!-- build:nav -->` / `<!-- build:footer -->` markers). `node build.js --check` reports stale
   pages and is what Netlify runs on deploy, so a forgotten build fails loudly instead of shipping.
-* The shared CSS is still duplicated per page; when you change it, apply the change to all 22 pages.
+* The shared CSS is still duplicated per page; when you change it, apply the change to every page (run `node build.js --check` to list them).
 * Save files as UTF-8 without a byte-order mark.
 * The quote forms post to Formspree (`https://formspree.io/f/mqeydnkg`) and include a `_gotcha`
   honeypot field for spam.

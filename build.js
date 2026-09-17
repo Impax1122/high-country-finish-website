@@ -68,7 +68,7 @@ if (!check) {
     const loc = rel === 'index.html' ? SITE + '/' : `${SITE}/${rel}`;
     const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     const imgs = [];
-    if (/^(portfolio|index|services)\.html$|^services\//.test(rel)) {
+    if (/^(portfolio|index|services)\.html$|^(services|blog)\//.test(rel)) {
       const re = /<img\b[^>]*src="([^"]+\.jpg)"[^>]*alt="([^"]*)"/g; let m;
       while ((m = re.exec(html))) { const src = m[1].startsWith('/') ? m[1] : '/' + m[1]; if (!/logo/.test(src)) imgs.push(`    <image:image><image:loc>${SITE}${src}</image:loc><image:title>${m[2].replace(/&/g, '&amp;')}</image:title></image:image>`); }
     }
