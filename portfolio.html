@@ -2634,6 +2634,18 @@ picture { display: contents; }
       line-height: 1.3;
     }
 
+    /* ── Featured project ── */
+    .port-feature { background: var(--black); padding: 20px 0 0; scroll-margin-top: 110px; }
+    .port-feature-text { max-width: 820px; margin: 0 auto 36px; padding: 0 32px; }
+    .port-feature-text h2 { font-size: clamp(28px, 4vw, 40px); color: var(--text); margin-bottom: 18px; }
+    .port-feature-text p { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 16px; }
+    .port-feature-text p a { color: var(--gold); }
+    .port-feature-text p a:hover { color: var(--gold-light); text-decoration: underline; }
+    .port-feature-facts { list-style: none; padding: 0; margin: 8px 0 20px; border-top: 1px solid var(--border); }
+    .port-feature-facts li { display: grid; grid-template-columns: 100px 1fr; gap: 12px; align-items: baseline; font-size: 14px; color: var(--muted); padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .port-feature-facts strong { color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+    @media(max-width:600px){ .port-feature-text { padding: 0 16px; } }
+
     /* ── Responsive ── */
     @media(max-width:900px){
       .port-grid { grid-template-columns: repeat(2,1fr); gap:16px; padding:0 20px; }
@@ -2737,11 +2749,49 @@ picture { display: contents; }
   </ul>
 </section>
 
+<section class="port-feature" id="sloan-lake-medical">
+  <div class="port-feature-text">
+    <span class="section-label">Featured Project</span>
+    <h2>Sloan Lake Medical Center: History Gallery in an Occupied Hospital</h2>
+    <p>A corridor-length photo gallery telling the hospital's story, from black and white archive images through groundbreaking and construction to the finished building. Every photo is printed on acrylic and mounted on brushed standoffs into painted brick, with large panoramic prints anchoring each end of the run.</p>
+    <p>The hospital stayed open the whole time, so the install was planned around dust control: every hole was laid out before drilling, drilled with dust captured at the bit by a HEPA extractor, vacuumed clean before the anchor went in, and the corridor was HEPA-vacuumed and wiped down before we left.</p>
+    <ul class="port-feature-facts">
+      <li><strong>Scope</strong> Acrylic photo panels and panoramic prints on standoffs</li>
+      <li><strong>Surface</strong> Painted brick, occupied hospital corridor</li>
+      <li><strong>Method</strong> Point-of-drill HEPA dust extraction and HEPA cleanup</li>
+    </ul>
+    <p><a href="/blog/dust-control-for-sign-installation-in-occupied-buildings.html">Read how we control dust when installing in hospitals and occupied buildings →</a></p>
+  </div>
+  <div class="port-grid">
+
+    <div class="port-item" onclick="openLightbox('images/sloan-lake-medical-gallery-wall.jpg')">
+      <picture><source type="image/webp" srcset="/images/webp/sloan-lake-medical-gallery-wall-480.webp 480w, /images/webp/sloan-lake-medical-gallery-wall-800.webp 800w, /images/webp/sloan-lake-medical-gallery-wall.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sloan-lake-medical-gallery-wall.jpg" width="1280" height="960" alt="Hospital corridor gallery of color acrylic photo panels on standoffs flanking a column at Sloan Lake Medical Center" fetchpriority="high"></picture>
+      <p class="port-caption">Corridor Gallery Wall · Sloan Lake Medical Center</p>
+    </div>
+    <div class="port-item" onclick="openLightbox('images/sloan-lake-medical-corridor-wide.jpg')">
+      <picture><source type="image/webp" srcset="/images/webp/sloan-lake-medical-corridor-wide-480.webp 480w, /images/webp/sloan-lake-medical-corridor-wide-800.webp 800w, /images/webp/sloan-lake-medical-corridor-wide.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sloan-lake-medical-corridor-wide.jpg" width="1280" height="960" alt="Wide view of a hospital corridor lined with standoff-mounted acrylic photo panels on painted brick at Sloan Lake Medical Center" loading="lazy"></picture>
+      <p class="port-caption">Full Corridor Run · Sloan Lake Medical Center</p>
+    </div>
+    <div class="port-item" onclick="openLightbox('images/sloan-lake-medical-timeline-wall.jpg')">
+      <picture><source type="image/webp" srcset="/images/webp/sloan-lake-medical-timeline-wall-480.webp 480w, /images/webp/sloan-lake-medical-timeline-wall-800.webp 800w, /images/webp/sloan-lake-medical-timeline-wall.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sloan-lake-medical-timeline-wall.jpg" width="1280" height="960" alt="Groundbreaking and construction photos printed on acrylic and mounted on standoffs along a brick corridor wall at Sloan Lake Medical Center" loading="lazy"></picture>
+      <p class="port-caption">Groundbreaking &amp; Construction Panels · Sloan Lake Medical Center</p>
+    </div>
+    <div class="port-item" onclick="openLightbox('images/sloan-lake-medical-construction-panels.jpg')">
+      <picture><source type="image/webp" srcset="/images/webp/sloan-lake-medical-construction-panels-480.webp 480w, /images/webp/sloan-lake-medical-construction-panels-800.webp 800w, /images/webp/sloan-lake-medical-construction-panels.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sloan-lake-medical-construction-panels.jpg" width="1280" height="960" alt="Construction progress photo panels and a panoramic Denver skyline print mounted near the elevator lobby at Sloan Lake Medical Center" loading="lazy"></picture>
+      <p class="port-caption">Construction Timeline &amp; Skyline Panorama · Sloan Lake Medical Center</p>
+    </div>
+    <div class="port-item" onclick="openLightbox('images/sloan-lake-medical-historic-panels.jpg')">
+      <picture><source type="image/webp" srcset="/images/webp/sloan-lake-medical-historic-panels-480.webp 480w, /images/webp/sloan-lake-medical-historic-panels-800.webp 800w, /images/webp/sloan-lake-medical-historic-panels.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/sloan-lake-medical-historic-panels.jpg" width="1280" height="960" alt="Black and white historic hospital photos and a large Denver panorama on standoff-mounted acrylic at Sloan Lake Medical Center" loading="lazy"></picture>
+      <p class="port-caption">Historic Black &amp; White Panels · Sloan Lake Medical Center</p>
+    </div>
+  </div>
+</section>
+
 <section class="port-grid-section">
   <div class="port-grid">
 
     <div class="port-item" onclick="openLightbox('images/peak-elevator-lobby-sign.jpg')">
-      <picture><source type="image/webp" srcset="/images/webp/peak-elevator-lobby-sign-480.webp 480w, /images/webp/peak-elevator-lobby-sign-800.webp 800w, /images/webp/peak-elevator-lobby-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="Acrylic lobby sign with dimensional letters for PEAK Elevator in Denver" fetchpriority="high"></picture>
+      <picture><source type="image/webp" srcset="/images/webp/peak-elevator-lobby-sign-480.webp 480w, /images/webp/peak-elevator-lobby-sign-800.webp 800w, /images/webp/peak-elevator-lobby-sign.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 640px"/><img src="images/peak-elevator-lobby-sign.jpg" width="1280" height="960" alt="Acrylic lobby sign with dimensional letters for PEAK Elevator in Denver" loading="lazy"></picture>
       <p class="port-caption">Lobby Acrylic Sign · PEAK Elevator</p>
     </div>
     <div class="port-item" onclick="openLightbox('images/novara-frosted-glass.jpg')">
