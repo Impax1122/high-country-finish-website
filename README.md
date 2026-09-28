@@ -17,8 +17,9 @@ images/               Photos, logo, share card (og-home.jpg), favicons
 sitemap.xml, feed.xml, robots.txt, netlify.toml, favicon.ico
 partials/             nav.html and footer.html — the single source for the shared nav/footer
 build.js              Copies the partials into every page, regenerates sitemap.xml and feed.xml (node build.js; --check on deploy)
+netlify/functions/    ClickUp webhook relay (server-side only; not a page)
 docs/                 Brand guide, launch guide, SEO audit/work log, e-commerce roadmap, image credits and build logs (not served)
-scripts/              Historical one-off build/patch scripts (not served, do not re-run)
+scripts/              Historical one-off build/patch scripts, plus the relay signature check (not served)
 ```
 
 ## Editing
@@ -40,3 +41,30 @@ scripts/              Historical one-off build/patch scripts (not served, do not
 ## Deploying
 
 Push to `master`; Netlify publishes the repository root.
+
+## ClickUp webhook relay
+
+`netlify/functions/clickup-relay.js` is a Netlify Function. Visitors never see it.
+ClickUp can POST JSON to a webhook URL but cannot add custom headers, and the
+receiver requires `Authorization`. The function checks ClickUp's `X-Signature`
+(hex HMAC-SHA256 of the raw body) and forwards that same body unchanged.
+
+Production path: `https://highcountryfinish.com/.netlify/functions/clickup-relay`
+
+Only `POST` is accepted (`405` otherwise). A missing or bad signature is `403`.
+ClickUp suspends a webhook that gets `401` or `410`, so those are never returned.
+A forward that fails or takes longer than 5 seconds returns `502` so ClickUp
+retries. A `2xx` from the receiver returns `200`.
+
+Set these in **Netlify → Site configuration → Environment variables**. They are
+not committed.
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `CLICKUP_WEBHOOK_SECRET` | yes | ClickUp webhook secret used to verify `X-Signature`. |
+| `RELAY_TARGET_AUTHORIZATION` | yes | Full `Authorization` value, sent verbatim. Add `Bearer ` yourself only if the receiver expects it. |
+| `RELAY_TARGET_URL` | no | Where the raw body is POSTed. Defaults to `https://api2.cursor.sh/automations/webhook/6d7dec1b-159d-5f4d-a8a5-1beb74206318`. |
+
+If the secret or the authorization value is missing, the function returns `503` and forwards nothing.
+
+`node scripts/test-clickup-relay.js` checks signature verification.
