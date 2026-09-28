@@ -8,3 +8,6 @@ re-inject markup/CSS, so running them again would duplicate nav/footer/CSS block
 re-introduce the encoding damage that has since been repaired.
 
 This directory (and `docs/`) is blocked from being served by Netlify via `netlify.toml`.
+
+`test-clickup-relay.js` is a current check for the ClickUp relay, not a site generator.
+Run it with `node scripts/test-clickup-relay.js`.
