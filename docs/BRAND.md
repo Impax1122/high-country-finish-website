@@ -229,7 +229,7 @@ nav.scrolled {
       <div class="footer-brand">
         <div class="logo-main">High Country</div>
         <div class="logo-sub">Finish &amp; Repair Co.</div>
-        <p>Commercial sign installation and vinyl graphics in the Denver metro.</p>
+        <p>Commercial sign installation and vinyl graphics. Based in Arvada, CO.</p>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Services</p>
@@ -246,7 +246,7 @@ nav.scrolled {
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 High Country Finish &amp; Repair Co. All rights reserved.</p>
-      <p>Denver metro &middot; 303-882-4656</p>
+      <p>Arvada, CO &middot; 303-882-4656</p>
     </div>
   </div>
 </footer>
@@ -412,7 +412,10 @@ footer {
 Public copy follows Brand Guide v2.1, with these website decisions from Alex:
 
 - Display name: **High Country Finish & Repair Co.** Always the ampersand and "Co." Never "Finish and Repair CO."
-- Public location: **Denver metro**. No street address on the site, including JSON-LD.
+- Public location: **Arvada, CO**. Say where the business is based as "Arvada, CO" (for example, "Based in Arvada, CO, serving Denver and the Front Range"). No street address and no postal code on the site, including JSON-LD. JSON-LD address is addressLocality "Arvada", addressRegion "CO", addressCountry "US". Service-area city lists can still name Denver and other cities. Do not use "Denver metro" as the business location.
+- Who we serve: homeowners and residential work, alongside businesses and sign shops. Do not say or imply commercial-only.
+- White-label installs are the default on trade jobs. Never post photos of a sign shop's job without that shop's OK.
+- Structured data telephone: **+1-303-882-4656**. Visible phone and tel: links: **303-882-4656**.
 - Email: **alexdrew@highcountryfinish.com**. Phone: **303-882-4656**.
 - Experience: **20+ years**. Certification: **3M Certified Graphics Installer**. Install count: **500+ installs**, credited to our lead installer.
 - Insurance on the site: **COI upon request**. Do not print "general liability insured," coverage limits, workers' comp, commercial auto, "fully insured," or additional-insured wording.
@@ -425,7 +428,7 @@ Public copy follows Brand Guide v2.1, with these website decisions from Alex:
 - **Direct** — No fluff, no corporate speak
 - **Plain** — Short sentences, contractions, concrete details
 - **Confident** — We know what we're doing
-- **Local** — Denver metro and the Front Range
+- **Local** — Based in Arvada, CO, serving Denver and the Front Range
 
 ### Key Phrases
 - "Every install should look like it came from the factory."
