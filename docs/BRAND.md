@@ -409,7 +409,7 @@ footer {
 
 ## Brand Messaging
 
-Public copy follows Brand Guide v2.1, with these website decisions from Alex:
+Public copy follows Brand Guide v2.3, with these website decisions from Alex:
 
 - Display name: **High Country Finish & Repair Co.** Always the ampersand and "Co." Never "Finish and Repair CO."
 - Public location: **Arvada, CO**. Say where the business is based as "Arvada, CO" (for example, "Based in Arvada, CO, serving Denver and the Front Range"). No street address and no postal code on the site, including JSON-LD. JSON-LD address is addressLocality "Arvada", addressRegion "CO", addressCountry "US". Service-area city lists can still name Denver and other cities. Do not use "Denver metro" as the business location.
