@@ -70,7 +70,7 @@ if (!check) {
     const imgs = [];
     if (/^(portfolio|index|services)\.html$|^(services|blog)\//.test(rel)) {
       const re = /<img\b[^>]*src="([^"]+\.jpg)"[^>]*alt="([^"]*)"/g; let m;
-      while ((m = re.exec(html))) { const src = m[1].startsWith('/') ? m[1] : '/' + m[1]; if (!/logo/.test(src)) imgs.push(`    <image:image><image:loc>${SITE}${src}</image:loc><image:title>${m[2].replace(/&/g, '&amp;')}</image:title></image:image>`); }
+      while ((m = re.exec(html))) { const src = m[1].startsWith('/') ? m[1] : '/' + m[1]; if (!/logo/.test(src)) { const title = m[2].replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); imgs.push(`    <image:image><image:loc>${SITE}${src}</image:loc><image:title>${title}</image:title></image:image>`); } }
     }
     return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod(rel)}</lastmod>\n    <changefreq>${freq(rel)}</changefreq>\n    <priority>${prio(rel)}</priority>\n${imgs.join('\n')}${imgs.length ? '\n' : ''}  </url>`;
   });
@@ -90,7 +90,7 @@ if (!check) {
     return null;
   }).filter(Boolean).sort((a, b) => b.pub.localeCompare(a.pub) || a.title.localeCompare(b.title));
   const items = posts.map(p => `    <item>\n      <title>${xesc(p.title)}</title>\n      <link>${SITE}/${p.rel}</link>\n      <guid isPermaLink="true">${SITE}/${p.rel}</guid>\n      <pubDate>${rfc822(p.pub)}</pubDate>\n      <description>${xesc(p.desc)}</description>${p.section ? `\n      <category>${xesc(p.section)}</category>` : ''}\n    </item>`);
-  const rss = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>High Country Finish and Repair CO Blog</title>\n    <link>${SITE}/blog.html</link>\n    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>\n    <description>Guides on wall wraps, commercial sign installation, vehicle wraps, window film, lobby signs and building signage for Denver businesses.</description>\n    <language>en-us</language>\n    <lastBuildDate>${posts.length ? rfc822(posts.map(p => p.mod).sort().pop()) : new Date().toUTCString()}</lastBuildDate>\n${items.join('\n')}\n  </channel>\n</rss>\n`;
+  const rss = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>High Country Finish &amp; Repair Co. Blog</title>\n    <link>${SITE}/blog.html</link>\n    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>\n    <description>Guides on wall wraps, commercial sign installation, vehicle wraps, window film, lobby signs and building signage for Denver businesses.</description>\n    <language>en-us</language>\n    <lastBuildDate>${posts.length ? rfc822(posts.map(p => p.mod).sort().pop()) : new Date().toUTCString()}</lastBuildDate>\n${items.join('\n')}\n  </channel>\n</rss>\n`;
   const feedPath = path.join(ROOT, 'feed.xml');
   if (!fs.existsSync(feedPath) || fs.readFileSync(feedPath, 'utf8') !== rss) { fs.writeFileSync(feedPath, rss); console.log('feed.xml regenerated'); }
 }

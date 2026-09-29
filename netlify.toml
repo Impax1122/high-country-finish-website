@@ -8,6 +8,13 @@
 [build.processing.html]
   pretty_urls = false
 
+# Canonical trade URL is /trade.html. pretty_urls is off, so this rewrite
+# is what makes /trade itself return 200.
+[[redirects]]
+  from = "/trade"
+  to = "/trade.html"
+  status = 200
+
 # Repo tooling and internal notes live in scripts/ and docs/ — never serve them.
 [[redirects]]
   from = "/scripts/*"
