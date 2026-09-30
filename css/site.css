@@ -148,7 +148,7 @@ nav.scrolled {
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 12px 0;
-  min-width: 220px;
+  min-width: 260px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);

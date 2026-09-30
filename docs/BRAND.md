@@ -228,8 +228,8 @@ nav.scrolled {
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="logo-main">High Country</div>
-        <div class="logo-sub">Finish & Repair CO</div>
-        <p>Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time.</p>
+        <div class="logo-sub">Finish &amp; Repair Co.</div>
+        <p>Commercial sign installation and vinyl graphics. Based in Arvada, CO.</p>
       </div>
       <div class="footer-col">
         <p class="footer-heading">Services</p>
@@ -245,8 +245,8 @@ nav.scrolled {
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 High Country Finish and Repair CO. All rights reserved.</p>
-      <p>Denver, CO &middot; 303-882-4656</p>
+      <p>&copy; 2026 High Country Finish &amp; Repair Co. All rights reserved.</p>
+      <p>Arvada, CO &middot; 303-882-4656</p>
     </div>
   </div>
 </footer>
@@ -409,21 +409,33 @@ footer {
 
 ## Brand Messaging
 
-### Tagline (Footer)
-"Denver's premier vinyl wrap, sign, and window tint specialists. Precision installs, every time."
+Public copy follows Brand Guide v2.3, with these website decisions from Alex:
+
+- Display name: **High Country Finish & Repair Co.** Always the ampersand and "Co." Never "Finish and Repair CO."
+- Public location: **Arvada, CO**. Say where the business is based as "Arvada, CO" (for example, "Based in Arvada, CO, serving Denver and the Front Range"). No street address and no postal code on the site, including JSON-LD. JSON-LD address is addressLocality "Arvada", addressRegion "CO", addressCountry "US". Service-area city lists can still name Denver and other cities. Do not use "Denver metro" as the business location.
+- Who we serve: homeowners and residential work, alongside businesses and sign shops. Do not say or imply commercial-only.
+- White-label installs are the default on trade jobs. Never post photos of a sign shop's job without that shop's OK.
+- Structured data telephone: **+1-303-882-4656**. Visible phone and tel: links: **303-882-4656**.
+- Email: **alexdrew@highcountryfinish.com**. Phone: **303-882-4656**.
+- Experience: **20+ years**. Certification: **3M Certified Graphics Installer**. Install count: **500+ installs**, credited to our lead installer.
+- Insurance on the site: **COI upon request**. Do not print "general liability insured," coverage limits, workers' comp, commercial auto, "fully insured," or additional-insured wording.
+- End-client line: "Every install should look like it came from the factory."
+- Trade page (`/trade.html`): "Your install crew — without the payroll." Descriptor: "Wholesale sign installation for the trade."
+- Do not use "guaranteed," "no questions asked," "premier," "flawless," "solutions," or "clients who demand the best."
+- Service names, in order: Sign Installation, Lobby Signs, Building Signs, Wall Graphics & Murals, Window Frosting & Tint, Vehicle Wraps & Graphics, Spot Graphics, Sign Removal, Site Surveys. Existing pages stay at their URLs. Window frosting and window tint remain separate pages. Custom Work stays because that page already exists. Sign removal and site surveys are named on the trade page and the services intro; they don't have their own pages.
 
 ### Voice & Tone
 - **Direct** — No fluff, no corporate speak
-- **Premium** — Quality-focused, detail-oriented
+- **Plain** — Short sentences, contractions, concrete details
 - **Confident** — We know what we're doing
-- **Local** — Denver/Front Range emphasis
+- **Local** — Based in Arvada, CO, serving Denver and the Front Range
 
 ### Key Phrases
-- "Precision installs"
-- "Clean, professional work"
-- "No shortcuts"
+- "Every install should look like it came from the factory."
+- "3M Certified Graphics Installer"
+- "20+ years"
+- "COI upon request"
 - "Detail-obsessed"
-- "Commercial-first"
 
 ---
 
@@ -464,6 +476,7 @@ vinyl-website/
 ├── our-process.html     (Match homepage exactly)
 ├── service-area.html    (Match homepage exactly)
 ├── get-a-quote.html     (Match homepage exactly)
+├── trade.html           (Wholesale page for sign companies)
 ├── blog.html            (Match homepage exactly)
 ├── services/
 │   ├── vehicle-wraps.html
@@ -502,5 +515,7 @@ vinyl-website/
 
 ---
 
-**Last updated:** March 15, 2026  
+**Last updated:** September 29, 2026  
 **Maintained by:** HC Overlord
+
+Share images under `images/og/` were not redrawn. Any "Denver's Premier" text baked into those image files is still there until the artwork is replaced.
