@@ -423,6 +423,8 @@ Public copy follows Brand Guide v2.3, with these website decisions from Alex:
 - Trade page (`/trade.html`): "Your install crew — without the payroll." Descriptor: "Wholesale sign installation for the trade."
 - Do not use "guaranteed," "no questions asked," "premier," "flawless," "solutions," or "clients who demand the best."
 - Service names, in order: Sign Installation, Lobby Signs, Building Signs, Wall Graphics & Murals, Window Frosting & Tint, Vehicle Wraps & Graphics, Spot Graphics, Sign Removal, Site Surveys. Existing pages stay at their URLs. Window frosting and window tint remain separate pages. Custom Work stays because that page already exists. Sign removal and site surveys are named on the trade page and the services intro; they don't have their own pages.
+- Site surveys have a fee. Alex decides job by job whether to credit that fee on larger jobs that go ahead. Do not describe a survey as free, complimentary, or included at no charge, and do not publish a dollar amount. Quotes stay free: "Free Quote" and "Request a Free Quote" stay as written.
+- Do not advertise ADA signage or contract or vinyl cutting as a service (no service-list item, form option, or schema offer). The ADA mounting-height post can stay as a rules article; its quote button is a generic sign-install quote. Passing mentions of ADA rules inside other posts can stay. Do not add new pages for that work.
 
 ### Voice & Tone
 - **Direct** — No fluff, no corporate speak
