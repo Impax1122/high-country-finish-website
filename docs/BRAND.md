@@ -417,7 +417,7 @@ Public copy follows Brand Guide v2.3, with these website decisions from Alex:
 - White-label installs are the default on trade jobs. Never post photos of a sign shop's job without that shop's OK.
 - Structured data telephone: **+1-303-882-4656**. Visible phone and tel: links: **303-882-4656**.
 - Email: **alexdrew@highcountryfinish.com**. Phone: **303-882-4656**.
-- Experience: **20+ years**. Certification: **3M Certified Graphics Installer**. Install count: **500+ installs**, credited to our lead installer.
+- Experience: **20+ years**. Certification: **3M Preferred Installer**. Install count: **500+ installs**, credited to our lead installer.
 - Insurance on the site: **COI upon request**. Do not print "general liability insured," coverage limits, workers' comp, commercial auto, "fully insured," or additional-insured wording.
 - End-client line: "Every install should look like it came from the factory."
 - Trade page (`/trade.html`): "Your install crew — without the payroll." Descriptor: "Wholesale sign installation for the trade."
@@ -434,7 +434,7 @@ Public copy follows Brand Guide v2.3, with these website decisions from Alex:
 
 ### Key Phrases
 - "Every install should look like it came from the factory."
-- "3M Certified Graphics Installer"
+- "3M Preferred Installer"
 - "20+ years"
 - "COI upon request"
 - "Detail-obsessed"
