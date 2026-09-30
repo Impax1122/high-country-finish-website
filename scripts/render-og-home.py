@@ -58,12 +58,8 @@ def load_font(filename, size):
     return ImageFont.truetype(str(FONT_DIR / filename), size)
 
 
-def text_width(font, text, tracking=0):
-    if not text:
-        return 0
-    if tracking == 0:
-        return font.getlength(text)
-    return sum(font.getlength(ch) for ch in text) + tracking * (len(text) - 1)
+def text_width(font, text):
+    return font.getlength(text)
 
 
 def text_height(font):
@@ -71,13 +67,11 @@ def text_height(font):
     return ascent + descent
 
 
-def draw_centered(draw, text, font, y, fill, canvas_w, tracking=0):
-    widths = [font.getlength(ch) for ch in text]
-    total = sum(widths) + tracking * (len(text) - 1)
-    x = (canvas_w - total) / 2
-    for ch, advance in zip(text, widths):
-        draw.text((x, y), ch, font=font, fill=fill, anchor="lt")
-        x += advance + tracking
+def draw_centered(draw, text, font, top, fill, canvas_w):
+    """Draw the whole line on one baseline. top is the top of the em box."""
+    ascent, _descent = font.getmetrics()
+    baseline = top + ascent
+    draw.text((canvas_w / 2, baseline), text, font=font, fill=fill, anchor="ms")
 
 
 def key_logo(logo):
@@ -155,20 +149,20 @@ def render():
     y += logo_h + gap_after_logo
 
     margin = 48 * SCALE
-    for label, font, tracking in (
-        (BUSINESS_NAME, name_font, 0),
-        (LOCATION, location_font, 0.6 * SCALE),
-        (DESCRIPTION, body_font, 0),
-        (URL, url_font, 0.4 * SCALE),
+    for label, font in (
+        (BUSINESS_NAME, name_font),
+        (LOCATION, location_font),
+        (DESCRIPTION, body_font),
+        (URL, url_font),
     ):
-        width = text_width(font, label, tracking)
+        width = text_width(font, label)
         if width > canvas_w - margin * 2:
             raise SystemExit(f"{label!r} is {width:.0f}px wide; canvas allows {canvas_w - margin * 2:.0f}px")
 
     draw_centered(draw, BUSINESS_NAME, name_font, y, TEXT, canvas_w)
     y += name_h + gap_after_name
 
-    draw_centered(draw, LOCATION, location_font, y, GOLD, canvas_w, tracking=0.6 * SCALE)
+    draw_centered(draw, LOCATION, location_font, y, GOLD, canvas_w)
     y += location_h + gap_after_location
 
     rule_y = y
@@ -177,7 +171,7 @@ def render():
     draw_centered(draw, DESCRIPTION, body_font, y, MUTED, canvas_w)
     y += body_h + gap_after_body
 
-    draw_centered(draw, URL, url_font, y, GOLD, canvas_w, tracking=0.4 * SCALE)
+    draw_centered(draw, URL, url_font, y, GOLD, canvas_w)
 
     final = image.resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
     final_draw = ImageDraw.Draw(final)
