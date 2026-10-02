@@ -1,182 +1,173 @@
 'use strict';
 
-// Relays ClickUp webhook deliveries to an endpoint that requires an
-// Authorization header. ClickUp signs the raw body but cannot set custom headers.
+// ClickUp webhook relay: wakes the right bot for a ClickUp event.
 //
-// ClickUp suspends a webhook immediately if the endpoint returns 401 or 410.
-// This function must never use those status codes: bad signatures are 403,
-// missing configuration is 503, and a failed forward is 502 (so ClickUp retries).
+// Routing (High Country Bot Rulebook, "How you get woken"):
+// - Jobs list, status change          -> bot on duty for the NEW status
+// - Jobs list, comment by Alex        -> bot on duty for the card's current status
+// - HQ list, status change or comment by Alex
+//                                     -> bot named in the card title, e.g. "[Billing] ..."
+// - Bot comments ("[Name] ..."), new cards, field changes, other lists and
+//   other events                      -> nobody (200, dropped)
+//
+// ClickUp suspends a webhook immediately on 401 or 410, so this function never
+// returns either: bad signature 403, no secret configured 503, failed forward or
+// a transient ClickUp lookup failure 502 (ClickUp retries). A bot without a
+// configured wake target is dropped with 200 and logged.
 
-const crypto = require('crypto');
-const http = require('http');
-const https = require('https');
+const wake = require('../lib/wake');
 
-const DEFAULT_TARGET = 'https://api2.cursor.sh/automations/webhook/6d7dec1b-159d-5f4d-a8a5-1beb74206318';
-const FORWARD_TIMEOUT_MS = 5000;
+const TAG = 'clickup-relay';
+const HANDLED_EVENTS = new Set(['taskStatusUpdated', 'taskCommentPosted']);
 
-function rawBody(event) {
-  const body = event && event.body != null ? event.body : '';
-  if (typeof body !== 'string') return Buffer.alloc(0);
-  // Netlify/Lambda base64-encodes the body for some content types. The HMAC
-  // has to cover the exact bytes ClickUp sent, not the base64 text.
-  if (event.isBase64Encoded) return Buffer.from(body, 'base64');
-  return Buffer.from(body, 'utf8');
+function listKey(listId) {
+  const id = listId == null ? '' : String(listId);
+  if (id === wake.LISTS.jobs) return 'jobs';
+  if (id === wake.LISTS.hq) return 'hq';
+  return id ? 'other' : '';
 }
 
-function headerValue(event, name) {
-  const headers = (event && event.headers) || {};
-  const want = name.toLowerCase();
-  let value;
-  for (const key of Object.keys(headers)) {
-    if (key.toLowerCase() === want) value = headers[key];
+function historyItem(payload, field) {
+  const items = Array.isArray(payload.history_items) ? payload.history_items : [];
+  return items.find((h) => h && h.field === field) || null;
+}
+
+function commentText(item) {
+  const c = item && item.comment;
+  if (!c) return '';
+  if (typeof c.text_content === 'string') return c.text_content;
+  if (Array.isArray(c.comment)) {
+    return c.comment.map((p) => (p && typeof p.text === 'string' ? p.text : '')).join('');
   }
-  if (Array.isArray(value)) value = value[0];
-  return typeof value === 'string' ? value : '';
+  return '';
 }
 
-// Hex HMAC-SHA256 of the raw body, compared in constant time.
-// Returns false (never throws) when the header is missing or malformed.
-function verifySignature(secret, signature, body) {
-  if (typeof secret !== 'string' || secret.length === 0) return false;
-  if (typeof signature !== 'string') return false;
-  const provided = signature.trim().toLowerCase();
-  if (provided.length !== 64 || !/^[0-9a-f]{64}$/.test(provided)) return false;
-  const expected = crypto.createHmac('sha256', secret).update(body).digest();
-  const actual = Buffer.from(provided, 'hex');
-  return crypto.timingSafeEqual(expected, actual);
+function isoDate(ms) {
+  const n = Number(ms);
+  if (!Number.isFinite(n) || n <= 0) return new Date().toISOString();
+  return new Date(n).toISOString();
 }
 
-function configured(secret, authorization) {
-  if (typeof secret !== 'string' || secret.length === 0) return false;
-  if (typeof authorization !== 'string' || authorization.length === 0) return false;
-  // A newline in the header value would split the outbound request. Treat that
-  // as "not configured" and refuse to forward.
-  if (/[\r\n\0]/.test(authorization)) return false;
-  return true;
+function statusText(side) {
+  if (!side) return null;
+  if (typeof side === 'string') return side;
+  return typeof side.status === 'string' ? side.status : null;
 }
 
-function forward(targetUrl, body, authorization, timeoutMs) {
-  return new Promise((resolve, reject) => {
-    let settled = false;
-    let url;
-    try {
-      url = new URL(targetUrl);
-    } catch (err) {
-      reject(Object.assign(new Error('forward failed'), { code: 'BAD_URL' }));
-      return;
-    }
-    if (url.protocol !== 'https:' && url.protocol !== 'http:') {
-      reject(Object.assign(new Error('forward failed'), { code: 'BAD_URL' }));
-      return;
-    }
+async function route(payload) {
+  const event = payload && payload.event;
+  if (!HANDLED_EVENTS.has(event)) return wake.drop(TAG, 'event_not_routed', `event=${String(event || 'none').slice(0, 40)}`);
 
-    const lib = url.protocol === 'https:' ? https : http;
-    const req = lib.request(
-      {
-        hostname: url.hostname,
-        port: url.port || undefined,
-        path: `${url.pathname}${url.search}`,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': body.length,
-          Authorization: authorization,
-        },
-      },
-      (res) => {
-        res.resume();
-        done(null, { statusCode: res.statusCode || 0 });
-      }
-    );
+  const taskId = typeof payload.task_id === 'string' ? payload.task_id : '';
+  if (!taskId) return wake.drop(TAG, 'no_task_id', `event=${event}`);
 
-    let timedOut = false;
-    const timer = setTimeout(() => {
-      timedOut = true;
-      req.destroy();
-      done(Object.assign(new Error('forward timeout'), { code: 'TIMEOUT' }));
-    }, timeoutMs);
+  const item = historyItem(payload, event === 'taskStatusUpdated' ? 'status' : 'comment');
+  if (!item) return wake.drop(TAG, 'no_history_item', `event=${event} task=${taskId}`);
 
-    req.on('error', (err) => {
-      if (timedOut) done(Object.assign(new Error('forward timeout'), { code: 'TIMEOUT' }));
-      else done(Object.assign(new Error('forward failed'), { code: (err && err.code) || 'ERROR' }));
-    });
-    req.end(body);
-
-    function done(err, result) {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      if (err) reject(err);
-      else resolve(result);
-    }
-  });
-}
-
-function respond(statusCode, payload, extraHeaders) {
-  return {
-    statusCode,
-    headers: Object.assign(
-      { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-      extraHeaders || {}
-    ),
-    body: JSON.stringify(payload),
+  const fields = {
+    source: 'clickup',
+    event,
+    task_id: taskId,
+    task_url: wake.taskUrl(taskId),
+    at: isoDate(item.date),
   };
+
+  let text = '';
+  if (event === 'taskCommentPosted') {
+    text = commentText(item);
+    // Drop bot comments before spending a ClickUp call on them.
+    if (wake.isBotComment(text)) return wake.drop(TAG, 'bot_comment', `event=${event} task=${taskId}`);
+    fields.comment_text = text;
+  } else {
+    fields.new_status = statusText(item.after);
+    fields.previous_status = statusText(item.before);
+  }
+
+  let list = listKey(item.parent_id);
+  let task = null;
+  const detail = () => `event=${event} list=${list || 'unknown'} task=${taskId}`;
+
+  // A Jobs status change needs no lookup. Everything else needs the card.
+  const needsTask = !(event === 'taskStatusUpdated' && list === 'jobs');
+  if (list === 'other') return wake.drop(TAG, 'other_list', detail());
+  if (needsTask) {
+    try {
+      task = await wake.getTask(taskId);
+    } catch (err) {
+      if (err instanceof wake.LookupError && err.permanent) {
+        return wake.drop(TAG, `lookup_${err.code.toLowerCase()}${err.statusCode ? `_${err.statusCode}` : ''}`, detail());
+      }
+      wake.log(TAG, 502, `${detail()} action=lookup_failed reason=${err && err.code ? String(err.code).toLowerCase() : 'error'}`);
+      return wake.respond(502, { error: 'lookup failed' });
+    }
+    if (!list) list = listKey(task && task.list && task.list.id);
+    fields.task_name = task && typeof task.name === 'string' ? task.name : null;
+  }
+  fields.list = list === 'jobs' || list === 'hq' ? list : null;
+
+  if (list === 'jobs') {
+    const status = event === 'taskStatusUpdated' ? fields.new_status : wake.taskStatus(task);
+    if (event === 'taskCommentPosted') fields.new_status = status || null;
+    const bot = wake.botForStatus(status);
+    if (!bot) return wake.drop(TAG, wake.isKnownStatus(status) ? 'nobody_on_duty' : 'unknown_status', detail());
+    return wake.wake(TAG, bot, fields, detail());
+  }
+
+  if (list === 'hq') {
+    const bot = wake.botForHqTitle(fields.task_name);
+    if (!bot) return wake.drop(TAG, 'no_bot_in_title', detail());
+    if (event === 'taskCommentPosted') fields.new_status = wake.taskStatus(task) || null;
+    return wake.wake(TAG, bot, fields, detail());
+  }
+
+  return wake.drop(TAG, 'other_list', detail());
 }
 
-function log(method, statusCode, detail) {
-  // Status codes and a short reason only. Never the body, signature, or env values.
-  if (detail) console.log(`clickup-relay method=${method} status=${statusCode} ${detail}`);
-  else console.log(`clickup-relay method=${method} status=${statusCode}`);
+function secrets() {
+  return [process.env.CLICKUP_WEBHOOK_SECRET, process.env.CLICKUP_WEBHOOK_SECRET_JOBS].filter(wake.hasValue);
 }
 
 async function handle(event) {
   const method = String((event && event.httpMethod) || '').toUpperCase();
   if (method !== 'POST') {
-    log(method || 'UNKNOWN', 405);
-    return respond(405, { error: 'method not allowed' }, { Allow: 'POST' });
+    wake.log(TAG, 405, `method=${method || 'UNKNOWN'}`);
+    return wake.respond(405, { error: 'method not allowed' }, { Allow: 'POST' });
   }
 
-  const secret = process.env.CLICKUP_WEBHOOK_SECRET;
-  const authorization = process.env.RELAY_TARGET_AUTHORIZATION;
-  if (!configured(secret, authorization)) {
-    log(method, 503, 'not_configured');
-    return respond(503, { error: 'relay not configured' });
+  if (wake.isPaused()) return wake.drop(TAG, 'paused');
+
+  const keys = secrets();
+  if (!keys.length) {
+    wake.log(TAG, 503, 'not_configured');
+    return wake.respond(503, { error: 'relay not configured' });
   }
 
-  const body = rawBody(event);
-  const signature = headerValue(event, 'x-signature');
-  if (!verifySignature(secret, signature, body)) {
-    log(method, 403);
-    return respond(403, { error: 'forbidden' });
+  const body = wake.rawBody(event);
+  const signature = wake.headerValue(event, 'x-signature');
+  if (!keys.some((k) => wake.verifySignature(k, signature, body))) {
+    wake.log(TAG, 403, 'bad_signature');
+    return wake.respond(403, { error: 'forbidden' });
   }
 
-  const target = process.env.RELAY_TARGET_URL || DEFAULT_TARGET;
+  let payload;
   try {
-    const upstream = await forward(target, body, authorization, FORWARD_TIMEOUT_MS);
-    if (upstream.statusCode >= 200 && upstream.statusCode < 300) {
-      log(method, 200, `upstream=${upstream.statusCode}`);
-      return respond(200, { ok: true });
-    }
-    log(method, 502, `upstream=${upstream.statusCode}`);
-    return respond(502, { error: 'upstream rejected' });
+    payload = JSON.parse(body.toString('utf8'));
   } catch (err) {
-    const reason = err && err.code === 'TIMEOUT' ? 'timeout' : 'forward_failed';
-    log(method, 502, reason);
-    return respond(502, { error: reason === 'timeout' ? 'upstream timeout' : 'upstream error' });
+    return wake.drop(TAG, 'bad_json');
   }
+  if (!payload || typeof payload !== 'object') return wake.drop(TAG, 'bad_json');
+  return route(payload);
 }
 
 exports.handler = async function handler(event) {
   try {
     return await handle(event);
   } catch (err) {
-    log('POST', 502, 'internal');
-    return respond(502, { error: 'relay failed' });
+    wake.log(TAG, 502, 'internal');
+    return wake.respond(502, { error: 'relay failed' });
   }
 };
 
-exports.rawBody = rawBody;
-exports.verifySignature = verifySignature;
-exports.forward = forward;
-exports.DEFAULT_TARGET = DEFAULT_TARGET;
-exports.FORWARD_TIMEOUT_MS = FORWARD_TIMEOUT_MS;
+exports.route = route;
+exports.listKey = listKey;
+exports.commentText = commentText;

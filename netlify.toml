@@ -1,6 +1,7 @@
 [build]
   publish = "."
-  command = "node build.js --check"
+  # The relay tests run on every deploy, so a routing regression fails the build.
+  command = "node build.js --check && node scripts/test-clickup-relay.js && node scripts/test-gmail-relay.js && node scripts/test-gmail-wake.js"
 
 # Keep internal links as /page.html so they match the canonical tags and sitemap.
 # With pretty_urls on, Netlify rewrote every link to /page while canonicals said /page.html,
@@ -22,9 +23,17 @@
   status = 404
   force = true
 
-# Function source is not a page. The live endpoint is /.netlify/functions/clickup-relay.
+# Function source is not a page. The live endpoints are /.netlify/functions/clickup-relay
+# and /.netlify/functions/gmail-relay.
 [[redirects]]
   from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Google Apps Script source for the Gmail wake script. Not a page.
+[[redirects]]
+  from = "/automation/*"
   to = "/404.html"
   status = 404
   force = true
@@ -79,7 +88,7 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# ClickUp webhook relay. Netlify deploys netlify/functions separately from the
-# static site; the directory is not published as site files.
+# Bot wake-up relays (ClickUp and Gmail). Netlify deploys netlify/functions
+# separately from the static site; the directory is not published as site files.
 [functions]
   directory = "netlify/functions"
