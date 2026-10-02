@@ -9,5 +9,6 @@ re-introduce the encoding damage that has since been repaired.
 
 This directory (and `docs/`) is blocked from being served by Netlify via `netlify.toml`.
 
-`test-clickup-relay.js` is a current check for the ClickUp relay, not a site generator.
-Run it with `node scripts/test-clickup-relay.js`.
+`test-clickup-relay.js`, `test-gmail-relay.js`, `test-gmail-wake.js` and
+`wake-test-helpers.js` are current checks for the bot wake-up relays and the Gmail
+script, not site generators. Netlify runs the three tests on every deploy.
