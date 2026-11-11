@@ -10,8 +10,11 @@ const h = require('./wake-test-helpers');
 
 const JOBS = '901421592255';
 const HQ = '901421591928';
+const PERSONAL_TODOS = '901423191614';
+const PERSONAL_SPACE = '90149893204';
 const SECRET = 'hq-webhook-secret';
 const SECRET_JOBS = 'jobs-webhook-secret';
+const SECRET_PERSONAL = 'personal-webhook-secret';
 
 function statusEvent(taskId, listId, before, after) {
   return {
@@ -24,6 +27,31 @@ function statusEvent(taskId, listId, before, after) {
       before: before == null ? null : { status: before, type: 'custom' },
       after: { status: after, type: 'custom' },
     }],
+  };
+}
+
+function tagEvent(taskId, listId, after, before) {
+  return {
+    event: 'taskTagUpdated',
+    task_id: taskId,
+    webhook_id: 'wh',
+    history_items: [{
+      id: '3', type: 1, date: '1759441200000', field: 'tag', parent_id: listId,
+      before: before === undefined ? null : before,
+      after: after === undefined ? null : after,
+    }],
+  };
+}
+
+function personalTask(id, opts) {
+  const tags = (opts && 'tags' in opts) ? opts.tags : [{ name: 'basecamp' }];
+  return {
+    id,
+    name: (opts && opts.name) || 'Personal card',
+    list: { id: PERSONAL_TODOS },
+    space: { id: PERSONAL_SPACE },
+    tags,
+    status: { status: (opts && opts.status) || 'to do' },
   };
 }
 
@@ -83,6 +111,14 @@ async function main() {
   assert.strictEqual(wake.botForHqTitle('[web presence] x'), 'web_presence');
   assert.strictEqual(wake.botForHqTitle('[Growth] retired'), null);
   assert.strictEqual(wake.botForHqTitle('[Bookkeeper] retired'), null);
+  assert.strictEqual(wake.botForHqTitle('[Basecamp] not an HC title'), null);
+  assert.strictEqual(wake.isPersonalList(PERSONAL_TODOS), true);
+  assert.strictEqual(wake.isPersonalList(JOBS), false);
+  assert.strictEqual(wake.isPersonalSpace(PERSONAL_SPACE), true);
+  assert.strictEqual(wake.taskHasTag({ tags: [{ name: 'basecamp' }] }, 'basecamp'), true);
+  assert.strictEqual(wake.taskHasTag({ tags: [{ name: 'Basecamp' }] }, 'basecamp'), true);
+  assert.strictEqual(wake.taskHasTag({ tags: [{ name: 'other' }] }, 'basecamp'), false);
+  assert.deepStrictEqual(wake.tagNames([{ name: 'basecamp' }, 'Other']), ['basecamp', 'other']);
   assert.strictEqual(wake.botForHqTitle('No prefix'), null);
   assert.strictEqual(wake.isBotComment('[Front Desk] did a thing'), true);
   assert.strictEqual(wake.isBotComment('  [COO] note'), true);
@@ -147,6 +183,10 @@ async function main() {
     assert.strictEqual(res.statusCode, 503, 'no secret at all is 503');
     process.env.CLICKUP_WEBHOOK_SECRET = SECRET;
     process.env.CLICKUP_WEBHOOK_SECRET_JOBS = SECRET_JOBS;
+    process.env.CLICKUP_WEBHOOK_SECRET_PERSONAL = SECRET_PERSONAL;
+
+    // The Personal-space webhook secret is accepted the same way.
+    await expectWake(statusEvent('t1', JOBS, 'new', 'pricing'), 'billing', { secret: SECRET_PERSONAL });
 
     // Base64 bodies are verified over the decoded bytes.
     {
@@ -338,6 +378,153 @@ async function main() {
       }
     }
 
+    // --- Personal space: only basecamp-tag add and comments on tagged cards ---
+    const added = [{ name: 'basecamp' }];
+    const otherTag = [{ name: 'later' }];
+    {
+      const json = await expectWake(tagEvent('p1', PERSONAL_TODOS, added), 'basecamp');
+      assert.strictEqual(json.list, 'personal');
+      assert.strictEqual(json.event, 'taskTagUpdated');
+      assert.strictEqual(json.source, 'clickup');
+      assert.strictEqual(json.task_id, 'p1');
+      assert.strictEqual(json.task_url, 'https://app.clickup.com/t/p1');
+      assert.strictEqual(json.bot, 'Basecamp');
+      assert.strictEqual(json.at, '2025-10-02T21:40:00.000Z');
+      assert.strictEqual(state.apiCalls.length, 0, 'tag add with names needs no lookup');
+    }
+    // space_id on the payload also identifies Personal, even with no parent_id.
+    {
+      const ev = tagEvent('p1', undefined, added);
+      delete ev.history_items[0].parent_id;
+      ev.space_id = PERSONAL_SPACE;
+      const json = await expectWake(ev, 'basecamp');
+      assert.strictEqual(json.list, 'personal');
+      assert.strictEqual(state.apiCalls.length, 0);
+    }
+    // Multiple tags added at once, including basecamp.
+    await expectWake(tagEvent('p1', PERSONAL_TODOS, [{ name: 'later' }, { name: 'basecamp' }]), 'basecamp');
+    // Single tag object (not an array) is accepted.
+    await expectWake(tagEvent('p1', PERSONAL_TODOS, { name: 'basecamp' }), 'basecamp');
+
+    await expectDrop(tagEvent('p1', PERSONAL_TODOS, null, added), 'basecamp_tag_not_added');
+    await expectDrop(tagEvent('p1', PERSONAL_TODOS, otherTag), 'basecamp_tag_not_added');
+    await expectDrop(tagEvent('p1', PERSONAL_TODOS, otherTag, added), 'basecamp_tag_not_added');
+    assert.strictEqual(state.apiCalls.length, 0);
+
+    // History item with no tag names: fetch the task.
+    state.tasks.p2 = personalTask('p2');
+    {
+      const ev = tagEvent('p2', PERSONAL_TODOS, null, null);
+      ev.history_items[0].after = {};
+      ev.history_items[0].before = {};
+      const json = await expectWake(ev, 'basecamp');
+      assert.strictEqual(state.apiCalls.length, 1);
+      assert.ok(state.apiCalls[0].path.endsWith('/task/p2'));
+      assert.strictEqual(json.task_name, 'Personal card');
+    }
+    state.tasks.p2 = personalTask('p2', { tags: [] });
+    {
+      const ev = tagEvent('p2', PERSONAL_TODOS, null, null);
+      ev.history_items[0].after = {};
+      ev.history_items[0].before = {};
+      await expectDrop(ev, 'basecamp_tag_not_added');
+    }
+
+    // Comments on a tagged Personal card: one GET for tags.
+    state.tasks.p3 = personalTask('p3', { name: 'Ask Basecamp' });
+    {
+      const json = await expectWake(commentEvent('p3', PERSONAL_TODOS, 'Please review this'), 'basecamp');
+      assert.strictEqual(json.list, 'personal');
+      assert.strictEqual(json.comment_text, 'Please review this');
+      assert.strictEqual(json.task_name, 'Ask Basecamp');
+      assert.strictEqual(json.event, 'taskCommentPosted');
+      assert.strictEqual(state.apiCalls.length, 1);
+    }
+    // Tags already on the payload: no lookup.
+    {
+      const ev = commentEvent('p3', PERSONAL_TODOS, 'Already tagged');
+      ev.tags = [{ name: 'basecamp' }];
+      const json = await expectWake(ev, 'basecamp');
+      assert.strictEqual(json.comment_text, 'Already tagged');
+      assert.strictEqual(state.apiCalls.length, 0);
+    }
+    state.tasks.p3 = personalTask('p3', { tags: [{ name: 'later' }] });
+    await expectDrop(commentEvent('p3', PERSONAL_TODOS, 'no tag'), 'no_basecamp_tag');
+    assert.strictEqual(state.apiCalls.length, 1);
+
+    // Bot comments on a tagged Personal card: dropped before any lookup.
+    state.tasks.p3 = personalTask('p3');
+    await expectDrop(commentEvent('p3', PERSONAL_TODOS, '[Basecamp] noted'), 'bot_comment');
+    await expectDrop(commentEvent('p3', PERSONAL_TODOS, '[Front Desk] should not leak'), 'bot_comment');
+    assert.strictEqual(state.apiCalls.length, 0);
+
+    // Other Personal events never wake Basecamp or an HC bot, even if the
+    // title looks like an HQ card.
+    state.tasks.p4 = personalTask('p4', { name: '[Billing] not an HQ card', tags: [{ name: 'basecamp' }] });
+    await expectDrop(statusEvent('p4', PERSONAL_TODOS, 'to do', 'pricing'), 'event_not_routed');
+    await expectDrop({ event: 'taskCreated', task_id: 'p4', history_items: [{ field: 'name', parent_id: PERSONAL_TODOS }] }, 'event_not_routed');
+    await expectDrop({ event: 'taskUpdated', task_id: 'p4', history_items: [{ field: 'tag', parent_id: PERSONAL_TODOS, after: added }] }, 'event_not_routed');
+    assert.strictEqual(state.wakes.length, 0);
+    assert.strictEqual(state.apiCalls.length, 0);
+
+    // Jobs/HQ tag updates stay dropped with no lookup (HC behavior unchanged).
+    await expectDrop(tagEvent('job1', JOBS, added), 'event_not_routed');
+    await expectDrop(tagEvent('hq1', HQ, added), 'event_not_routed');
+    assert.strictEqual(state.apiCalls.length, 0);
+
+    // A Jobs comment on a card that happens to have the basecamp tag still
+    // wakes the HC bot on duty, never Basecamp.
+    state.tasks.job3 = {
+      id: 'job3', name: 'HC-26-0099 Tagged job', list: { id: JOBS },
+      tags: [{ name: 'basecamp' }], status: { status: 'pricing' },
+    };
+    {
+      const json = await expectWake(commentEvent('job3', JOBS, 'price check'), 'billing');
+      assert.strictEqual(json.list, 'jobs');
+      assert.strictEqual(json.bot, 'Billing');
+    }
+
+    // Missing parent_id on a Personal comment: fetch, then route to Basecamp.
+    state.tasks.p5 = personalTask('p5', { name: 'No parent id' });
+    {
+      const ev = commentEvent('p5', undefined, 'hello from personal');
+      delete ev.history_items[0].parent_id;
+      const json = await expectWake(ev, 'basecamp');
+      assert.strictEqual(json.list, 'personal');
+      assert.strictEqual(state.apiCalls.length, 1);
+    }
+
+    // Missing parent_id on a Personal tag add: fetch, then route to Basecamp.
+    state.tasks.p6 = personalTask('p6');
+    {
+      const ev = tagEvent('p6', undefined, added);
+      delete ev.history_items[0].parent_id;
+      const json = await expectWake(ev, 'basecamp');
+      assert.strictEqual(json.list, 'personal');
+      assert.strictEqual(state.apiCalls.length, 1);
+    }
+
+    // Unset Basecamp wake target: drop, never 5xx, no secrets in the log.
+    delete process.env.WAKE_BASECAMP_URL;
+    await expectDrop(tagEvent('p1', PERSONAL_TODOS, added), 'no_target');
+    process.env.WAKE_BASECAMP_URL = `${base}/wake/basecamp`;
+    process.env.WAKE_BASECAMP_AUTH = 'Bearer x\r\nEvil: 1';
+    await expectDrop(tagEvent('p1', PERSONAL_TODOS, added), 'no_target');
+    process.env.WAKE_BASECAMP_AUTH = 'Bearer key-basecamp';
+
+    // Personal comment lookup failures match the HC policy.
+    state.tasks.p3 = personalTask('p3');
+    h.reset(state);
+    state.apiStatus = 500;
+    res = await post(commentEvent('p3', PERSONAL_TODOS, 'hi'));
+    assert.strictEqual(res.statusCode, 502, 'transient ClickUp error -> retry');
+    h.reset(state);
+    state.apiStatus = 401;
+    res = await post(commentEvent('p3', PERSONAL_TODOS, 'hi'));
+    assert.strictEqual(res.statusCode, 200, 'bad ClickUp token -> drop, not a retry loop');
+    assert.strictEqual(state.wakes.length, 0);
+    await expectDrop(commentEvent('missing-personal', PERSONAL_TODOS, 'hi'), 'lookup_http_404');
+
     // --- normalized body carries no raw ClickUp payload ---
     {
       const json = await expectWake(statusEvent('t9', JOBS, 'quoted', 'won'), 'job_coordinator');
@@ -354,7 +541,7 @@ async function main() {
     }
     // Logs: no secrets, keys, tokens, task names or comment text.
     for (const line of logs) {
-      for (const bad of [SECRET, SECRET_JOBS, 'key-', 'pk_test_token', 'Bearer', 'Change line 2', 'Acme', 'Receipts to categorize']) {
+      for (const bad of [SECRET, SECRET_JOBS, SECRET_PERSONAL, 'key-', 'pk_test_token', 'Bearer', 'Change line 2', 'Acme', 'Receipts to categorize', 'Ask Basecamp', 'Please review this', 'hello from personal']) {
         assert.ok(!line.includes(bad), `log line leaks "${bad}": ${line}`);
       }
     }

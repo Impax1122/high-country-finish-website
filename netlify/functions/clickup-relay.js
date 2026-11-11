@@ -10,6 +10,15 @@
 // - Bot comments ("[Name] ..."), new cards, field changes, other lists and
 //   other events                      -> nobody (200, dropped)
 //
+// Approved exception (not in the Oct 2 rulebook wake table):
+// - Personal space (90149893204, To-dos list 901423191614):
+//     taskTagUpdated where the tag `basecamp` is added, or
+//     taskCommentPosted on a task that already carries that tag
+//       -> Basecamp
+//   Any other Personal-space event is dropped. Personal-space events never
+//   wake an HC bot. If WAKE_BASECAMP_URL or WAKE_BASECAMP_AUTH is unset, the
+//   event is dropped with 200 and a log line that contains no secrets.
+//
 // ClickUp suspends a webhook immediately on 401 or 410, so this function never
 // returns either: bad signature 403, no secret configured 503, failed forward or
 // a transient ClickUp lookup failure 502 (ClickUp retries). A bot without a
@@ -19,6 +28,8 @@ const wake = require('../lib/wake');
 
 const TAG = 'clickup-relay';
 const HANDLED_EVENTS = new Set(['taskStatusUpdated', 'taskCommentPosted']);
+const PERSONAL_EVENTS = new Set(['taskTagUpdated', 'taskCommentPosted']);
+const BASECAMP_TAG = 'basecamp';
 
 function listKey(listId) {
   const id = listId == null ? '' : String(listId);
@@ -54,8 +65,139 @@ function statusText(side) {
   return typeof side.status === 'string' ? side.status : null;
 }
 
+function payloadListId(payload) {
+  if (payload && payload.list_id != null && payload.list_id !== '') return String(payload.list_id);
+  const items = Array.isArray(payload && payload.history_items) ? payload.history_items : [];
+  for (const h of items) {
+    if (h && h.parent_id != null && h.parent_id !== '') return String(h.parent_id);
+  }
+  return '';
+}
+
+function payloadSpaceId(payload) {
+  if (payload && payload.space_id != null && payload.space_id !== '') return String(payload.space_id);
+  return '';
+}
+
+function isPersonalPayload(payload) {
+  return wake.isPersonalSpace(payloadSpaceId(payload)) || wake.isPersonalList(payloadListId(payload));
+}
+
+function tagWasAdded(item, name) {
+  const want = String(name).trim().toLowerCase();
+  const after = wake.tagNames(item && item.after);
+  const before = wake.tagNames(item && item.before);
+  return after.includes(want) && !before.includes(want);
+}
+
+function historyHasTagNames(item) {
+  return wake.tagNames(item && item.after).length > 0 || wake.tagNames(item && item.before).length > 0;
+}
+
+function payloadTagNames(payload) {
+  if (!payload || typeof payload !== 'object') return [];
+  if (payload.tags) return wake.tagNames(payload.tags);
+  if (payload.task && payload.task.tags) return wake.tagNames(payload.task.tags);
+  return [];
+}
+
+async function lookupTask(taskId, detail) {
+  try {
+    return { task: await wake.getTask(taskId) };
+  } catch (err) {
+    if (err instanceof wake.LookupError && err.permanent) {
+      return { response: wake.drop(TAG, `lookup_${err.code.toLowerCase()}${err.statusCode ? `_${err.statusCode}` : ''}`, detail()) };
+    }
+    wake.log(TAG, 502, `${detail()} action=lookup_failed reason=${err && err.code ? String(err.code).toLowerCase() : 'error'}`);
+    return { response: wake.respond(502, { error: 'lookup failed' }) };
+  }
+}
+
+async function routePersonal(payload, prefetchedTask) {
+  const event = payload && payload.event;
+  const taskId = typeof payload.task_id === 'string' ? payload.task_id : '';
+  const detail = () => `event=${String(event || 'none').slice(0, 40)} list=personal task=${taskId || 'none'}`;
+
+  if (!taskId) return wake.drop(TAG, 'no_task_id', `event=${String(event || 'none').slice(0, 40)}`);
+  if (!PERSONAL_EVENTS.has(event)) return wake.drop(TAG, 'event_not_routed', detail());
+
+  const fields = {
+    source: 'clickup',
+    event,
+    list: 'personal',
+    task_id: taskId,
+    task_url: wake.taskUrl(taskId),
+  };
+
+  if (event === 'taskCommentPosted') {
+    const item = historyItem(payload, 'comment');
+    if (!item) return wake.drop(TAG, 'no_history_item', detail());
+    const text = commentText(item);
+    // Drop bot comments before spending a ClickUp call on them.
+    if (wake.isBotComment(text)) return wake.drop(TAG, 'bot_comment', detail());
+    fields.comment_text = text;
+    fields.at = isoDate(item.date);
+
+    let task = prefetchedTask || null;
+    const fromPayload = payloadTagNames(payload);
+    if (!task && !fromPayload.length) {
+      const looked = await lookupTask(taskId, detail);
+      if (looked.response) return looked.response;
+      task = looked.task;
+    }
+    if (task && typeof task.name === 'string') fields.task_name = task.name;
+    const hasTag = fromPayload.includes(BASECAMP_TAG) || wake.taskHasTag(task, BASECAMP_TAG);
+    if (!hasTag) return wake.drop(TAG, 'no_basecamp_tag', detail());
+    return wake.wake(TAG, 'basecamp', fields, detail());
+  }
+
+  const item = historyItem(payload, 'tag') || historyItem(payload, 'tags');
+  if (!item) return wake.drop(TAG, 'no_history_item', detail());
+  fields.at = isoDate(item.date);
+
+  if (tagWasAdded(item, BASECAMP_TAG)) {
+    if (prefetchedTask && typeof prefetchedTask.name === 'string') fields.task_name = prefetchedTask.name;
+    return wake.wake(TAG, 'basecamp', fields, detail());
+  }
+
+  // History item is present but has no tag names: fetch the task and wake
+  // only if it now carries the basecamp tag.
+  if (!historyHasTagNames(item)) {
+    let task = prefetchedTask || null;
+    if (!task) {
+      const looked = await lookupTask(taskId, detail);
+      if (looked.response) return looked.response;
+      task = looked.task;
+    }
+    if (task && typeof task.name === 'string') fields.task_name = task.name;
+    if (wake.taskHasTag(task, BASECAMP_TAG)) return wake.wake(TAG, 'basecamp', fields, detail());
+  }
+
+  return wake.drop(TAG, 'basecamp_tag_not_added', detail());
+}
+
 async function route(payload) {
   const event = payload && payload.event;
+
+  // Personal-space events never enter the HC router.
+  if (isPersonalPayload(payload)) return routePersonal(payload);
+
+  // Tag updates on Jobs/HQ/other lists stay dropped, with no lookup. If the
+  // location is missing, one GET decides whether this is Personal.
+  if (event === 'taskTagUpdated') {
+    const listId = payloadListId(payload);
+    const spaceId = payloadSpaceId(payload);
+    const taskId = typeof payload.task_id === 'string' ? payload.task_id : '';
+    if (listId || spaceId || !taskId) {
+      return wake.drop(TAG, 'event_not_routed', `event=${String(event || 'none').slice(0, 40)}${taskId ? ` task=${taskId}` : ''}`);
+    }
+    const detail = () => `event=${event} list=unknown task=${taskId}`;
+    const looked = await lookupTask(taskId, detail);
+    if (looked.response) return looked.response;
+    if (wake.isPersonalTask(looked.task)) return routePersonal(payload, looked.task);
+    return wake.drop(TAG, 'event_not_routed', `event=${event} list=${listKey(looked.task && looked.task.list && looked.task.list.id) || 'unknown'} task=${taskId}`);
+  }
+
   if (!HANDLED_EVENTS.has(event)) return wake.drop(TAG, 'event_not_routed', `event=${String(event || 'none').slice(0, 40)}`);
 
   const taskId = typeof payload.task_id === 'string' ? payload.task_id : '';
@@ -100,6 +242,8 @@ async function route(payload) {
       wake.log(TAG, 502, `${detail()} action=lookup_failed reason=${err && err.code ? String(err.code).toLowerCase() : 'error'}`);
       return wake.respond(502, { error: 'lookup failed' });
     }
+    // Missing parent_id on a Personal card: divert, never wake an HC bot.
+    if (wake.isPersonalTask(task)) return routePersonal(payload, task);
     if (!list) list = listKey(task && task.list && task.list.id);
     fields.task_name = task && typeof task.name === 'string' ? task.name : null;
   }
@@ -124,7 +268,11 @@ async function route(payload) {
 }
 
 function secrets() {
-  return [process.env.CLICKUP_WEBHOOK_SECRET, process.env.CLICKUP_WEBHOOK_SECRET_JOBS].filter(wake.hasValue);
+  return [
+    process.env.CLICKUP_WEBHOOK_SECRET,
+    process.env.CLICKUP_WEBHOOK_SECRET_JOBS,
+    process.env.CLICKUP_WEBHOOK_SECRET_PERSONAL,
+  ].filter(wake.hasValue);
 }
 
 async function handle(event) {

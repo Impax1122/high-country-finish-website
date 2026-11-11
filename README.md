@@ -46,12 +46,14 @@ Push to `master`; Netlify publishes the repository root.
 ## Bot wake-up relays (ClickUp and Gmail)
 
 Two Netlify Functions wake the High Country bots when something happens. Visitors
-never see them. The routing follows the "How you get woken" table in the High
-Country Bot Rulebook (Oct 2, 2026); any event not on it is dropped with `200`.
+never see them. High Country routing follows the "How you get woken" table in the
+High Country Bot Rulebook (Oct 2, 2026). One approved exception, not in that
+table, routes a narrow set of Personal-space events to Basecamp. Any other event
+is dropped with `200`.
 
 | Endpoint | Called by | Signature |
 |---|---|---|
-| `https://highcountryfinish.com/.netlify/functions/clickup-relay` | ClickUp webhooks (HQ list and Jobs list) | `X-Signature`: hex HMAC-SHA256 of the raw body with `CLICKUP_WEBHOOK_SECRET` or `CLICKUP_WEBHOOK_SECRET_JOBS` |
+| `https://highcountryfinish.com/.netlify/functions/clickup-relay` | ClickUp webhooks (HQ list, Jobs list, and Personal space once that webhook is added) | `X-Signature`: hex HMAC-SHA256 of the raw body with `CLICKUP_WEBHOOK_SECRET`, `CLICKUP_WEBHOOK_SECRET_JOBS`, or `CLICKUP_WEBHOOK_SECRET_PERSONAL` |
 | `https://highcountryfinish.com/.netlify/functions/gmail-relay` | The Gmail wake script (`automation/gmail-wake/`) | `X-Signature`: hex HMAC-SHA256 of the raw body with `GMAIL_RELAY_SECRET` |
 
 ### Routing
@@ -71,6 +73,7 @@ Bot on duty by Jobs status (case-insensitive):
 | Alex comments on a Jobs card | Bot on duty for the card's current status (one ClickUp GET) |
 | HQ card status change, or Alex comments on an HQ card | Bot named in the title prefix: `[Front Desk]`, `[Billing]` (old `[Estimator]` too), `[Job Coordinator]`, `[Chief of Staff]`, `[Web Presence]`. Other or retired names: nobody |
 | A comment starting with `[Name]` (bot comment; all bots post with Alex's ClickUp token), a new card, a field change, other lists, other events | nobody |
+| Personal space (To-dos list): `taskTagUpdated` where the tag `basecamp` is added, or `taskCommentPosted` on a task that already carries that tag | Basecamp. Any other Personal-space event is dropped and never reaches an HC bot. Unset `WAKE_BASECAMP_URL` / `WAKE_BASECAMP_AUTH` drops these too (`200`, no secrets in the log). This row is not in the Oct 2 rulebook wake table; Alex's approval of the HQ card covers the exception. |
 | Gmail `new_thread` (not from Alex, not automated, not a receipt) | Front Desk |
 | Gmail `reply` on a thread | Bot on duty for the Jobs card whose description holds the thread id; Front Desk if that job is Closed or Lost; **Front Desk if no job card matches**; nobody if On hold |
 | Gmail `alex_sent` (Alex sent a draft) | That job's bot on duty; no matching job: nobody |
@@ -100,12 +103,14 @@ redeploy. They are not committed.
 |---|---|
 | `CLICKUP_WEBHOOK_SECRET` | Secret of the HQ list ClickUp webhook (existing). |
 | `CLICKUP_WEBHOOK_SECRET_JOBS` | Secret of the Jobs list ClickUp webhook (optional second secret). |
+| `CLICKUP_WEBHOOK_SECRET_PERSONAL` | Secret of the Personal-space ClickUp webhook (optional third secret; paste after that webhook is created). |
 | `CLICKUP_API_TOKEN` | ClickUp personal token, for card lookups. |
 | `GMAIL_RELAY_SECRET` | Shared with the Gmail script's Script Property of the same name. |
 | `WAKE_FRONT_DESK_URL` / `WAKE_FRONT_DESK_AUTH` | Front Desk's wake webhook URL and full `Authorization` header value (sent verbatim). |
 | `WAKE_BILLING_URL` / `WAKE_BILLING_AUTH` | Billing's. |
 | `WAKE_JOB_COORDINATOR_URL` / `WAKE_JOB_COORDINATOR_AUTH` | Job Coordinator's. |
 | `WAKE_WEB_PRESENCE_URL` / `WAKE_WEB_PRESENCE_AUTH` | Web Presence's. |
+| `WAKE_BASECAMP_URL` / `WAKE_BASECAMP_AUTH` | Basecamp's wake webhook URL and full `Authorization` header value. If unset, Personal `basecamp`-tag events are dropped with `200`. |
 | `WAKE_CHIEF_OF_STAFF_URL` / `WAKE_CHIEF_OF_STAFF_AUTH` | Optional. If unset, Chief of Staff keeps the original relay target: `RELAY_TARGET_URL` (default `https://api2.cursor.sh/automations/webhook/6d7dec1b-159d-5f4d-a8a5-1beb74206318`) with `RELAY_TARGET_AUTHORIZATION`. |
 | `RELAY_PAUSED` | `true` makes both endpoints drop everything with `200` (the pause switch). |
 
