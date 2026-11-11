@@ -21,6 +21,12 @@ const LIST_PAGE_LIMIT = 10;
 const LISTS = {
   jobs: '901421592255',
   hq: '901421591928',
+  personalTodos: '901423191614',
+};
+
+// Personal space is not an HC space. Events from it must never wake an HC bot.
+const SPACES = {
+  personal: '90149893204',
 };
 
 // Bot keys and the env var prefix holding each bot's wake target.
@@ -30,6 +36,7 @@ const BOTS = {
   job_coordinator: { name: 'Job Coordinator', env: 'WAKE_JOB_COORDINATOR' },
   chief_of_staff: { name: 'Chief of Staff', env: 'WAKE_CHIEF_OF_STAFF' },
   web_presence: { name: 'Web Presence', env: 'WAKE_WEB_PRESENCE' },
+  basecamp: { name: 'Basecamp', env: 'WAKE_BASECAMP' },
 };
 
 // Jobs list status -> bot on duty. null means nobody is on duty.
@@ -82,6 +89,47 @@ function isKnownStatus(status) {
 function isClosedOrLost(status) {
   const key = normStatus(status);
   return key === 'closed' || key === 'lost';
+}
+
+function isPersonalList(listId) {
+  return listId != null && String(listId) === LISTS.personalTodos;
+}
+
+function isPersonalSpace(spaceId) {
+  return spaceId != null && String(spaceId) === SPACES.personal;
+}
+
+// True when a fetched task belongs to the Personal space or its To-dos list.
+function isPersonalTask(task) {
+  if (!task || typeof task !== 'object') return false;
+  const space = task.space;
+  const list = task.list;
+  const spaceId = space && (typeof space === 'object' ? space.id : space);
+  const listId = list && (typeof list === 'object' ? list.id : list);
+  return isPersonalSpace(spaceId) || isPersonalList(listId);
+}
+
+// Names from a webhook after/before value or a task.tags array. ClickUp's
+// taskTagUpdated payload uses an array of { name }; a single object or string
+// is accepted too. Comparison is case-insensitive.
+function tagNames(value) {
+  const items = Array.isArray(value) ? value : (value ? [value] : []);
+  const names = [];
+  for (const t of items) {
+    if (typeof t === 'string') {
+      const n = t.trim().toLowerCase();
+      if (n) names.push(n);
+    } else if (t && typeof t.name === 'string') {
+      const n = t.name.trim().toLowerCase();
+      if (n) names.push(n);
+    }
+  }
+  return names;
+}
+
+function taskHasTag(task, name) {
+  if (!task || typeof name !== 'string') return false;
+  return tagNames(task.tags).includes(name.trim().toLowerCase());
 }
 
 // "[Billing] Receipts to categorize" -> 'billing'. Unknown or retired names -> null.
@@ -389,10 +437,16 @@ module.exports = {
   FORWARD_TIMEOUT_MS,
   LOOKUP_TIMEOUT_MS,
   LISTS,
+  SPACES,
   BOTS,
   STATUS_DUTY,
   HQ_TITLE_BOTS,
   LookupError,
+  isPersonalList,
+  isPersonalSpace,
+  isPersonalTask,
+  tagNames,
+  taskHasTag,
   botForStatus,
   botForHqTitle,
   isKnownStatus,
